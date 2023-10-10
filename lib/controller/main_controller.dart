@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:front/data/model/user.dart';
@@ -7,7 +6,6 @@ import 'package:front/provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import 'dart:developer' as dev;
 class HomeController extends GetxController
     with StateMixin<User>, WidgetsBindingObserver {
   final Api api = Api();
@@ -43,10 +41,5 @@ setupApp();
     super.onInit();
   }
 
-  @override
-  void dispose() {
-
-    super.dispose();
-  }
 
 }

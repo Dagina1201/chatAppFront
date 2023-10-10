@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+
 import 'package:front/binding/bindings.dart';
 import 'package:front/pages/pages.dart';
 import 'package:get/get.dart';

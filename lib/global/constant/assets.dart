@@ -8,6 +8,7 @@ const nav = 'assets/icons/navigationBar/';
 
 // images
 const imageLogo = '${images}logo.png';
+const loginProLogo = '${images}login_pro.png';
 
 // icons
 

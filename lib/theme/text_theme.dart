@@ -1,43 +1,38 @@
 
 import 'package:flutter/material.dart';
-import 'package:front/global/global.dart';
 
 
 
 
-const TextStyle head1 =
-    TextStyle(fontWeight: FontWeight.bold, fontSize: 36.0, color: Colors.black);
-
-const TextStyle largeTitle = TextStyle(
-  fontSize: 31,
-  color: primary,
-  fontWeight: FontWeight.w700,
-);
-
-const TextStyle smallBody = TextStyle(
-    fontSize: 15,
-    color: Colors.white,
-    fontWeight: FontWeight.normal,
-    height: 1.5);
-
-const smallLabel = TextStyle(
-    fontSize: 10,
-    color: Colors.white,
-    fontWeight: FontWeight.normal,
-    height: 1.2);
-const TextStyle smallDisplay =
-    TextStyle(fontSize: 13, color: primary, fontWeight: FontWeight.normal);
+// display
+// const TextStyle largeDisplay =
+//     TextStyle(fontWeight: FontWeight.normal, fontSize: 36.0, color: Colors.black);
 const TextStyle mediumDisplay =
-    TextStyle(fontSize: 16, color: primary, fontWeight: FontWeight.normal);
+    TextStyle(fontWeight: FontWeight.normal, fontSize: 50.0, color: Colors.black);
+const TextStyle smallDisplay =
+    TextStyle(fontWeight: FontWeight.normal, fontSize: 34.0, color: Colors.black);
+
+// title
+const TextStyle largeTitle =
+    TextStyle(fontWeight: FontWeight.normal, fontSize: 28.0, color: Colors.black);
+const TextStyle mediumTitle =
+    TextStyle(fontWeight: FontWeight.normal, fontSize: 24.0, color: Colors.black);
+const TextStyle smallTitle =
+    TextStyle(fontWeight: FontWeight.normal, fontSize: 22.0, color: Colors.black);
+
+// body
+const TextStyle largeBody =
+    TextStyle(fontWeight: FontWeight.normal, fontSize: 21.0, color: Colors.black);
+const TextStyle mediumBody =
+    TextStyle(fontWeight: FontWeight.normal, fontSize: 19.0, color: Colors.black);
+const TextStyle smallBody =
+    TextStyle(fontWeight: FontWeight.normal, fontSize: 16.0, color: Colors.black);
+
+// label
+const TextStyle largeLabel =
+    TextStyle(fontWeight: FontWeight.normal, fontSize: 14.0, color: Colors.black);
 const TextStyle mediumLabel =
-    TextStyle(fontSize: 13, color: primary, fontWeight: FontWeight.normal);
-const TextStyle mediumBody = TextStyle(
-  fontSize: 20,
-  color: Colors.white,
-  fontWeight: FontWeight.bold,
-);
-const TextStyle mediumTitle = TextStyle(
-  fontWeight: FontWeight.bold,
-  fontSize: 20,
-  color: Colors.black,
-);
+    TextStyle(fontWeight: FontWeight.normal, fontSize: 13.0, color: Colors.black);
+const TextStyle smallLabel =
+    TextStyle(fontWeight: FontWeight.normal, fontSize: 12.0, color: Colors.black);
+

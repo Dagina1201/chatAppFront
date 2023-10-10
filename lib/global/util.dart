@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:front/global/constant/constant.dart';
 
 import 'package:get_storage/get_storage.dart';
-import 'package:intl/intl.dart';
 
 
   final GlobalKey<ScaffoldMessengerState> snackbarKey =
@@ -43,7 +42,7 @@ mainSnackbar(
     }
     final SnackBar snackBar = SnackBar(
       duration: const Duration(milliseconds: 1500),
-      padding:  const EdgeInsets.symmetric(horizontal: origin, vertical: small),
+      padding:  const EdgeInsets.symmetric(horizontal: regular, vertical: small),
       backgroundColor: color,
       behavior: SnackBarBehavior.floating,
       content: Row(

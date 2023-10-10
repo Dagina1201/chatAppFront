@@ -5,7 +5,6 @@ import 'package:front/provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import 'dart:developer' as dev;
 
 
 
@@ -15,11 +14,7 @@ class AuthController extends GetxController {
   final storage = GetStorage();
   final loading = false.obs;
   final isVisible = true.obs;
-  @override
-  onInit() {
-    super.onInit();
  
-  }
   // login
   final phoneFocus = FocusNode();
   final passwordFocus = FocusNode();
@@ -43,11 +38,6 @@ class AuthController extends GetxController {
 
   
 
-  _loginEmailListener() {
-    if (loginPhoneController.text.length == 8) {
-      Get.focusScope?.unfocus();
-    }
-  }
 
   register() async {
     
@@ -77,11 +67,6 @@ class AuthController extends GetxController {
 
   // forgetPassword(BuildContext context) async {
 
-  
-  @override
-  void dispose() {
-   
-    super.dispose();
-  }
+
 
 }

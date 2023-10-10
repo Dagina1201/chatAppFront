@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 
-import 'dart:developer' as dev;
+
 typedef EitherUser<T> = Future<Either<String, User>>;
 typedef EitherToken<T> = Future<Either<String, String>>;
 typedef EitherSuccess<T> = Future<Either<String, bool>>;
