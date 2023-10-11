@@ -18,6 +18,7 @@ const waterBlue = Color(0xffD5F2FF);
 // shadow
 
 const orangeShadow = Color(0xffE43800);
+const blueShadow = Color(0xff0048D2);
 
 // text
 

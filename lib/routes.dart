@@ -11,12 +11,12 @@ class Routes {
   // main
 
   static String main = '/main';
-// prime
-  static String prime = '/prime';
-  static String primeLawyer = '$prime/lawyer';
+  // home
+  static String home = '/home';
+
   // auth
   static String auth = '/login';
-  static String register = '/register';
+
 
 // pages
   static final pages = [
@@ -26,21 +26,28 @@ class Routes {
         page: () => const SplashView(),
         binding: SplashBinding(),
         transition: Transition.fade,
-        transitionDuration: const Duration(milliseconds: 300)),
+        transitionDuration: const Duration(milliseconds: 100)),
 
-    // home
+    // main
     GetPage(
         name: main,
+        page: () => const MainView(),
+        binding: HomeBinding(),
+        transition: Transition.fade,
+        transitionDuration: const Duration(milliseconds: 100)),
+    // home
+    GetPage(
+        name: home,
         page: () => const HomeView(),
         binding: HomeBinding(),
         transition: Transition.fade,
-        transitionDuration: const Duration(milliseconds: 300)),
+        transitionDuration: const Duration(milliseconds: 100)),
     //  auth
     GetPage(
         name: auth,
         page: () => const AuthView(),
         binding: AuthBinding(),
         transition: Transition.fade,
-        transitionDuration: const Duration(milliseconds: 300)),
+        transitionDuration: const Duration(milliseconds: 100)),
   ];
 }

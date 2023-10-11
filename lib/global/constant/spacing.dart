@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-
+const double most = 65;
 const double huge = 58.0;
 
 const double large = 32.0;
@@ -10,7 +10,7 @@ const double medium = 25.0;
 const double regular = 20.0;
 const double wide = 18.0;
 const double tall = 16.0;
-const double small = 9.0;
+const double small = 12.0;
 const double tiny = 8.0;
 const double mini = 6.0;
 const double short = 4.0;
@@ -29,6 +29,7 @@ const SizedBox space20 = SizedBox(height: 20.0, width: 20.0);
 const SizedBox space18 = SizedBox(height: 18.0, width: 18.0);
 const SizedBox space16 = SizedBox(height: 16.0, width: 16.0);
 const SizedBox space13 = SizedBox(height: 13, width: 13);
+const SizedBox space9 = SizedBox(height: 9, width: 9);
 const SizedBox space6 = SizedBox(height: 6, width: 6);
 const SizedBox space4 = SizedBox(height: 4, width: 4);
 const Spacer spacer = Spacer();

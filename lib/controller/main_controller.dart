@@ -6,7 +6,7 @@ import 'package:front/provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-class HomeController extends GetxController
+class MainController extends GetxController
     with StateMixin<User>, WidgetsBindingObserver {
   final Api api = Api();
   final storage = GetStorage();
@@ -37,7 +37,7 @@ setupApp();
 
   @override
   void onInit() async {
-    await setupApp();
+    // await setupApp();
     super.onInit();
   }
 
