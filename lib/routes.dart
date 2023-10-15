@@ -14,6 +14,11 @@ class Routes {
   // home
   static String home = '/home';
 
+  // chat
+
+  static String chat = '/chat';
+  static String team = '$chat/team';
+
   // auth
   static String auth = '/login';
 
@@ -28,13 +33,7 @@ class Routes {
         transition: Transition.fade,
         transitionDuration: const Duration(milliseconds: 100)),
 
-    // main
-    GetPage(
-        name: main,
-        page: () => const MainView(),
-        binding: HomeBinding(),
-        transition: Transition.fade,
-        transitionDuration: const Duration(milliseconds: 100)),
+     
     // home
     GetPage(
         name: home,
@@ -47,6 +46,12 @@ class Routes {
         name: auth,
         page: () => const AuthView(),
         binding: AuthBinding(),
+        transition: Transition.fade,
+        transitionDuration: const Duration(milliseconds: 100)),
+    GetPage(
+        name: chat,
+        page: () => const ChatView(),
+
         transition: Transition.fade,
         transitionDuration: const Duration(milliseconds: 100)),
   ];

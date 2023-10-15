@@ -54,7 +54,7 @@ class SplashController extends GetxController {
       (tkn) async {
         if (tkn != null) {
           // await storage.write(StorageKeys.currentPage.name, 0);
-          Get.toNamed(Routes.main);
+          Get.toNamed(Routes.home);
         } else {
           Get.toNamed(Routes.auth);
         }

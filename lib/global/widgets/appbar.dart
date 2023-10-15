@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:front/global/global.dart';
+import 'package:front/routes.dart';
+import 'package:get/get.dart';
 
 const double kToolbarHeight = 65.0;
 
@@ -44,5 +46,41 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             const SizedBox()
               ],
             ));
+  }
+}
+
+
+class MainDrawer extends StatelessWidget {
+  const MainDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+
+  child: ListView(
+
+    padding: EdgeInsets.zero,
+    children: [
+      const DrawerHeader(
+        decoration: BoxDecoration(
+          color: Colors.blue,
+        ),
+        child: Text('Drawer Header'),
+      ),
+      ListTile(
+        title: const Text('Home'),
+        onTap: () {
+           Get.toNamed(Routes.home);
+        },
+      ),
+      ListTile(
+        title: const Text(chats),
+        onTap: () {
+          Get.toNamed(Routes.chat);
+        },
+      ),
+    ],
+  ),
+);
   }
 }

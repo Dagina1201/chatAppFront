@@ -8,8 +8,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class MainView extends StatefulWidget {
-  const MainView({super.key, });
-
+  const MainView({super.key, required this.child });
+final Widget child;
   @override
   State<MainView> createState() => _MainViewState();
 }
@@ -17,10 +17,7 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   final controller = Get.put(MainController());
   final storage = GetStorage();
-  Util util = Util();
-  List<Widget> views = [
-    HomeView()
-  ];
+
 
 
   @override
@@ -30,44 +27,34 @@ class _MainViewState extends State<MainView> {
     super.initState();
 
   }
-  
+  final GlobalKey<ScaffoldState> mainKey =  GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(onTap: () {}, ),
+      key: mainKey,
+      appBar:CustomAppBar(onTap: () {}, child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          IconButton(onPressed: () {mainKey.currentState?.openDrawer();}, icon: Icon(Icons.menu)),
+          Image.asset(imageLogo),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Image.asset(imageLogo, width: 53, height: 53,),
+          )
+        ],
+      ),), 
+      drawer: MainDrawer(),
       body: Padding(
         padding: const  EdgeInsets.symmetric(horizontal: medium),
-        child: Obx(
-            () => 
-                 views[controller.currentIndex.value]
-                ,
-          ),
+        child: Container(
+          padding: EdgeInsets.only(bottom: regular),
+      height: MediaQuery.of(context).size.height -
+          most -
+          MediaQuery.of(context).padding.top -  MediaQuery.of(context).padding.bottom ,child: widget.child)
       )
     );
-    // return GetBuilder<MainController>(
-    //   init: MainController(),
-    //   builder: (controller) => controller.obx(
-    //       onLoading: const SplashView(),
-    //       onError: (error) => Stack(
-    //             children: [
-    //               // const SplashView(),
 
-    //               Text(error.toString())
-    //             ],
-    //           ), (user) {
-
-    //     return Scaffold(
-         
-    //       body: Obx(
-    //         () => 
-    //              views[controller.currentIndex.value]
-    //             ,
-    //       ),
-         
-    //     );
-    //   }),
-    // );
   }
 }
 

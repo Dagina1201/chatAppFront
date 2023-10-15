@@ -9,7 +9,7 @@ class HomeStatusView extends StatelessWidget {
   final List<Diagram> list ; 
   @override
   Widget build(BuildContext context) {
-    print(list.first.value);
+    
     return AspectRatio(
       aspectRatio: 1,
       child: Container(
@@ -106,19 +106,20 @@ class HomeStatusView extends StatelessWidget {
           space22,              
           AspectRatio(aspectRatio: 0.95, child: Container(
             width: double.infinity,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: list.length,
-              itemBuilder: (context, index) {
-              return 
-                  DiagramAnimation(data: list[index], index: index,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: list.map((e) {
+                int index = list.indexOf(e);
+                return DiagramAnimation(data: e, index: index,
             
                 
               );
-            },)
+              }).toList(),
+            )
           ),),
           space9,
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: list.map((e) {
               final i = list.indexOf(e);
              
@@ -143,6 +144,7 @@ class DiagramAnimation extends StatelessWidget {
     return TweenAnimationBuilder(tween: Tween(begin: 0.0, end: 1.0), duration: Duration(milliseconds: 500 * (index + 1)), builder: (context, currentState, child) {
             
                   return Container(
+                
                     height: double.infinity,
                     width: 29,
                     child: 
@@ -216,7 +218,7 @@ class DiagramPainter extends CustomPainter {
 
 
      canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(8,size.height *(1-value),15,size.height * value / 1 * currentState,),Radius.circular(50.0)),uncompleted);
-     canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(8,size.height *(1-value),15,size.height * value / 1 * active * currentState,),Radius.circular(50.0)),completed);
+     if(active > 0) canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(8,size.height *(1-value),15,size.height * value / 1 * active * currentState,),Radius.circular(50.0)),completed);
 
   }
 
