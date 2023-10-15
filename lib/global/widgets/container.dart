@@ -38,7 +38,7 @@ class _MainContainerState extends State<MainContainer> {
     return AnimatedOpacity(opacity: animated || !widget.animate ? 1 : 0, duration: const Duration(milliseconds: 300),  child: AnimatedContainer(
       padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: tall, vertical: 14),
       duration: const Duration(milliseconds: 300 ),
-   
+    width: double.infinity,
       margin: widget.margin ?? EdgeInsets.only(top: animated || !widget.animate ? 0 : 10),
       decoration: BoxDecoration(
         

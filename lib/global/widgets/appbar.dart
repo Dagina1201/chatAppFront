@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/controller/controllers.dart';
 
 import 'package:front/global/global.dart';
 import 'package:front/routes.dart';
@@ -51,10 +52,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
 
 class MainDrawer extends StatelessWidget {
-  const MainDrawer({super.key});
-
+  const MainDrawer({super.key, required this.onTap});
+  final Function() onTap;
   @override
   Widget build(BuildContext context) {
+final controller = Get.put(MainController());
     return Drawer(
 
   child: ListView(
@@ -70,13 +72,15 @@ class MainDrawer extends StatelessWidget {
       ListTile(
         title: const Text('Home'),
         onTap: () {
-           Get.toNamed(Routes.home);
+          controller.currentIndex.value = 0;
+           onTap();
         },
       ),
       ListTile(
         title: const Text(chats),
         onTap: () {
-          Get.toNamed(Routes.chat);
+          controller.currentIndex.value = 1;
+          onTap();
         },
       ),
     ],

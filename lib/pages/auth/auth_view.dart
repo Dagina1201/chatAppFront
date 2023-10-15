@@ -54,7 +54,7 @@ class _AuthViewState extends State<AuthView> {
                             Text(signGoogle, style: Theme.of(context).textTheme.bodySmall!.copyWith(color: white),)
                           ],
                         ), onPressed: () {
-                      Get.toNamed(Routes.home);
+                      Get.toNamed(Routes.main);
                     },),
                       space58,
                       Image.asset(imageLogo, height: 24,)

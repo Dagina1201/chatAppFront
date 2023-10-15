@@ -31,6 +31,7 @@ class _MainButtonState extends State<MainButton> {
      GestureDetector(
         onTapDown: _onTapDown,
         onTapUp: _onTapUp,
+        
         onTapCancel: _onTapCancel,
         onTap: widget.onPressed,
         child: AnimatedContainer(

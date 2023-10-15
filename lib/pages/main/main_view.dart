@@ -8,8 +8,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class MainView extends StatefulWidget {
-  const MainView({super.key, required this.child });
-final Widget child;
+  const MainView({super.key, });
+
   @override
   State<MainView> createState() => _MainViewState();
 }
@@ -18,7 +18,8 @@ class _MainViewState extends State<MainView> {
   final controller = Get.put(MainController());
   final storage = GetStorage();
 
-
+  final pages = [HomeView(), ChatView()]
+  ;
 
   @override
   void initState() {
@@ -44,15 +45,12 @@ class _MainViewState extends State<MainView> {
           )
         ],
       ),), 
-      drawer: MainDrawer(),
-      body: Padding(
-        padding: const  EdgeInsets.symmetric(horizontal: medium),
-        child: Container(
-          padding: EdgeInsets.only(bottom: regular),
-      height: MediaQuery.of(context).size.height -
-          most -
-          MediaQuery.of(context).padding.top -  MediaQuery.of(context).padding.bottom ,child: widget.child)
-      )
+      drawer: MainDrawer(onTap: () {mainKey.currentState?.closeDrawer();}),
+      body:  Container(
+        height: MediaQuery.of(context).size.height - huge - MediaQuery.of(context).padding.top - MediaQuery.of(context).padding.bottom,
+        padding: EdgeInsets.only(right: medium, bottom: regular, left: medium),
+        child: Obx(() => pages[controller.currentIndex.value]))
+      
     );
 
   }

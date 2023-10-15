@@ -34,6 +34,13 @@ class Routes {
         transitionDuration: const Duration(milliseconds: 100)),
 
      
+    // main
+    GetPage(
+        name: main,
+        page: () => const MainView(),
+   
+        transition: Transition.fade,
+        transitionDuration: const Duration(milliseconds: 100)),
     // home
     GetPage(
         name: home,
