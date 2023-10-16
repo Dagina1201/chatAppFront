@@ -11,7 +11,7 @@ class MainController extends GetxController
   final Api api = Api();
   final storage = GetStorage();
   final loading = false.obs;
-  final currentIndex = 0.obs;
+  final currentIndex = 1.obs;
   Future<void> setupApp() async {
     loading.value = true;
     try {

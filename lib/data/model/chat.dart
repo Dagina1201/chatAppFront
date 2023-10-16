@@ -10,6 +10,7 @@ class Chat {
   User? created;
   List<User>? users;
   int? groupNumber;
+  String? img;
 
   Chat(
       {this.types,
@@ -20,6 +21,7 @@ class Chat {
       this.pin,
       this.teacher,
       this.created,
+      this.img,
       this.users});
 
   Chat.fromJson(Map<String, dynamic> json) {
@@ -28,6 +30,7 @@ class Chat {
     nickname = json['nickname'];
     number = json['number'];
     groupNumber = json['groupNumber'];
+    img = json['img'];
     pin = json['pin'] != null ? new Message.fromJson(json['pin']) : null;
     teacher =
         json['teacher'] != null ? new User.fromJson(json['teacher']) : null;
@@ -47,6 +50,7 @@ class Chat {
     data['name'] = this.name;
     data['nickname'] = this.nickname;
     data['number'] = this.number;
+    data['img'] = this.img;
     data['groupNumber'] = this.groupNumber;
     if (this.pin != null) {
       data['pin'] = this.pin!.toJson();

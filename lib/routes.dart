@@ -18,6 +18,7 @@ class Routes {
 
   static String chat = '/chat';
   static String team = '$chat/team';
+  static String createChat = '$chat/create';
 
   // auth
   static String auth = '/login';
@@ -55,9 +56,16 @@ class Routes {
         binding: AuthBinding(),
         transition: Transition.fade,
         transitionDuration: const Duration(milliseconds: 100)),
+        // chat
     GetPage(
         name: chat,
         page: () => const ChatView(),
+
+        transition: Transition.fade,
+        transitionDuration: const Duration(milliseconds: 100)),
+    GetPage(
+        name: createChat,
+        page: () => const CreateChatView(),
 
         transition: Transition.fade,
         transitionDuration: const Duration(milliseconds: 100)),

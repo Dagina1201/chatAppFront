@@ -14,8 +14,14 @@ const semesterOff = 'Semester off';
 const completed = 'Completed';
 const weeklyActivity = 'Weekly activity';
 const today = 'Today';
+const add = 'Нэмэх';
+const thanks = 'Баярлалаа';
 
 // chat
 const lesson = 'Хичээл';
 const team = 'Баг';
 const lessonCodeGroupNumber = 'Хичээлийн код, групийн дугаар';
+const createTeamChat = 'Багийн чат үүсгэх';
+
+// create chat 
+const chooseGroup = "Choose group";

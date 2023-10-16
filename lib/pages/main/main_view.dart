@@ -18,7 +18,7 @@ class _MainViewState extends State<MainView> {
   final controller = Get.put(MainController());
   final storage = GetStorage();
 
-  final pages = [HomeView(), ChatView()]
+  final pages = [HomeView(), ChatView(), CreateChatView()]
   ;
 
   @override

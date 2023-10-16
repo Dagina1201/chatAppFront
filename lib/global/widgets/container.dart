@@ -3,9 +3,9 @@ import 'package:front/global/constant/constant.dart';
 
 
 class MainContainer extends StatefulWidget {
-  const MainContainer({super.key,this.margin, required this.child,this.animate = true, this.padding , this.color = blue, this.index = 0, this.borderRadius = borderRadius16, this.shadowColor, this.shadow = false});
+  const MainContainer({super.key,this.margin, required this.child,this.animate = true, this.padding , this.color = blue, this.index = 0, this.borderRadius, this.borderRadiusValue = borderRadius16, this.shadowColor, this.shadow = false});
   final Color color;
-  final double borderRadius;
+  final double borderRadiusValue;
   final Color? shadowColor;
   final bool shadow;
   final int index;
@@ -13,6 +13,7 @@ class MainContainer extends StatefulWidget {
   final EdgeInsets? padding;
   final EdgeInsets? margin;
   final bool animate ;
+  final BorderRadius? borderRadius;
 
   @override
   State<MainContainer> createState() => _MainContainerState();
@@ -43,7 +44,7 @@ class _MainContainerState extends State<MainContainer> {
       decoration: BoxDecoration(
         
         color:widget.color ,
-        borderRadius: BorderRadius.circular(widget.borderRadius),
+        borderRadius: widget.borderRadius ?? BorderRadius.circular(widget.borderRadiusValue),
         boxShadow: [
           if(widget.shadow)
           BoxShadow(

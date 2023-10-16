@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:front/data/data.dart';
 import 'package:front/global/global.dart';
@@ -64,6 +65,31 @@ MainButton(
   onPressed: () {}, label: goChat, color: btnColor, shadowColor: btnShadowColor, textColor: btnTextColor,)
         ],
       ),
+    );
+  }
+}
+
+
+class ChooseGroupCard extends StatelessWidget {
+  const ChooseGroupCard({super.key, required this.name, required this.uri});
+  final String name;
+  final String uri;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        ClipRRect(
+          borderRadius: BorderRadius.circular(100),
+          child: CachedNetworkImage(
+            imageUrl: uri,
+            progressIndicatorBuilder: (context, url, progress) => CircularProgressIndicator(),
+          ),
+        ),
+        space13,
+        Text(name, style: Theme.of(context).textTheme.labelLarge!.copyWith(letterSpacing: -0.02),)
+      ],
     );
   }
 }

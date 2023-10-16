@@ -7,8 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'dart:developer' as dev;
 
 class ChatController extends GetxController {
-
-// final chatType = ChatTypes.GROUP.obs;
+  final createStep = 0.obs;
   @override
   void onInit() async {
     try {

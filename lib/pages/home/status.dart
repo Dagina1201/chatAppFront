@@ -19,7 +19,7 @@ class HomeStatusView extends StatelessWidget {
           children: [
             Expanded(
               child: MainContainer(
-                borderRadius: 0,
+                borderRadiusValue: 0,
                 padding: EdgeInsets.zero,
                 color: Colors.transparent,
                 child: Column(
