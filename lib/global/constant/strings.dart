@@ -25,3 +25,4 @@ const createTeamChat = 'Багийн чат үүсгэх';
 
 // create chat 
 const chooseGroup = "Choose group";
+const chooseStudent = "Choose student";

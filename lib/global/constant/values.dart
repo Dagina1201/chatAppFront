@@ -1,4 +1,5 @@
 import 'package:front/data/data.dart';
+import 'package:front/global/constant/constant.dart';
 
 const navBarValues = [
   {
@@ -69,4 +70,122 @@ List<Chat> groups = [
     groupNumber: 299
 
   ),
+  Chat(
+    name: "LAW",
+    number: 333,
+    users: [User(), User()],
+    groupNumber: 299
+
+  ),
+  Chat(
+    name: "LAW",
+    number: 333,
+    users: [User(), User()],
+    groupNumber: 299
+
+  ),
+  Chat(
+    name: "LAW",
+    number: 333,
+    users: [User(), User()],
+    groupNumber: 299
+
+  ),
+  Chat(
+    name: "LAW",
+    number: 333,
+    users: [User(), User()],
+    groupNumber: 299
+
+  ),
+  Chat(
+    name: "LAW",
+    number: 333,
+    users: [User(), User()],
+    groupNumber: 299
+
+  ),
+  Chat(
+    name: "LAW",
+    number: 333,
+    users: [User(), User()],
+    groupNumber: 299
+
+  ),
+  Chat(
+    name: "LAW",
+    number: 333,
+    users: [User(), User()],
+    groupNumber: 299
+
+  ),
+  Chat(
+    name: "LAW",
+    number: 333,
+    users: [User(), User()],
+    groupNumber: 299
+
+  ),
+  Chat(
+    name: "LAW",
+    number: 333,
+    users: [User(), User()],
+    groupNumber: 299
+
+  ),
+  Chat(
+    name: "LAW",
+    number: 333,
+    users: [User(), User()],
+    groupNumber: 299
+
+  ),
+  Chat(
+    name: "LAW",
+    number: 333,
+    users: [User(), User()],
+    groupNumber: 299
+
+  ),
 ];
+List<User> users = [
+  User(
+    nickname: 'Эса',
+    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  ),
+  User(
+    nickname: 'Эса',
+    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  ),
+  User(
+    nickname: 'Эса',
+    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  ),
+  User(
+    nickname: 'Эса',
+    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  ),
+  User(
+    nickname: 'Эса',
+    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  ),
+  User(
+    nickname: 'Эса',
+    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  ),
+  User(
+    nickname: 'Эса',
+    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  ),
+  User(
+    nickname: 'Эса',
+    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  ),
+  User(
+    nickname: 'Эса',
+    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  ),
+
+];
+
+List<String> createStepTexts = [chooseGroup, chooseStudent];

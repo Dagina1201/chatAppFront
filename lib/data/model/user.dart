@@ -6,6 +6,8 @@ class User {
   String? firstName;
   String? lastName;
   String? phone;
+  String? nickname;
+  String? uri;
  
 
   User(
@@ -13,6 +15,8 @@ class User {
       this.firstName,
       this.lastName,
       this.phone,
+      this.nickname,
+      this.uri,
      });
 
   User.fromJson(Map<String, dynamic> json) {
@@ -20,6 +24,8 @@ class User {
     firstName = json['firstName'];
     lastName = json['lastName'];
     phone = json['phone'];
+    nickname = json['nickname'];
+    uri = json['uri'];
    
   }
 
@@ -29,6 +35,8 @@ class User {
     data['firstName'] = firstName;
     data['lastName'] = lastName;
     data['phone'] = phone;
+    data['nickname'] = nickname;
+    data['uri'] = uri;
     
     return data;
   }

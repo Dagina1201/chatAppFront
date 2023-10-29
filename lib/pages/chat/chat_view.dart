@@ -108,6 +108,7 @@ class _ChatViewState extends State<ChatView> {
       shadow: false,
       child: MainButton(onPressed: () {
 mainController.currentIndex.value = 2;
+
      },
      color: searchColor, 
      shadowColor: searchShadowColor,

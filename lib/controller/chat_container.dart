@@ -8,6 +8,7 @@ import 'dart:developer' as dev;
 
 class ChatController extends GetxController {
   final createStep = 0.obs;
+  final choseGroup = "".obs;
   @override
   void onInit() async {
     try {

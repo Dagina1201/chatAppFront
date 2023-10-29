@@ -80,15 +80,50 @@ class ChooseGroupCard extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        ClipRRect(
-          borderRadius: BorderRadius.circular(100),
-          child: CachedNetworkImage(
-            imageUrl: uri,
-            progressIndicatorBuilder: (context, url, progress) => CircularProgressIndicator(),
-          ),
-        ),
-        space13,
+       CircleAvatar(
+          radius: (MediaQuery.of(context).size.width - (2 * medium)) / 3 / 2,
+          backgroundColor: Colors.transparent,
+         child: CircleAvatar(
+          backgroundColor: Colors.transparent,
+          radius: (MediaQuery.of(context).size.width - (2 * medium)) / 3 / 2 - 20,
+          backgroundImage: NetworkImage(uri),       ),
+       ),
+        
         Text(name, style: Theme.of(context).textTheme.labelLarge!.copyWith(letterSpacing: -0.02),)
+      ],
+    );
+  }
+}
+
+
+class ChooseStudentCard extends StatelessWidget {
+  const ChooseStudentCard({super.key, required this.data, required this.index});
+  final User data;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+
+          CircleAvatar(
+            radius: (MediaQuery.of(context).size.width - (2 * medium)) / 3/ 2,
+            backgroundColor: orange,
+            child: CircleAvatar(
+              
+            backgroundColor: Colors.transparent,
+            radius: (MediaQuery.of(context).size.width - (2 * medium)) / 3/ 2 - 20,
+            backgroundImage: NetworkImage(
+                
+                 data.uri ?? "https://www.ufe.edu.mn/image/%D0%BB%D0%BE%D0%B3%D0%BE%20%D0%B1%D0%BE%D1%81%D0%BE%D0%BE.png",
+               
+              ),
+                   ),
+          ),
+       
+  
+        Text(data.nickname ?? "", style: Theme.of(context).textTheme.labelLarge!.copyWith(letterSpacing: -0.02),)
       ],
     );
   }
