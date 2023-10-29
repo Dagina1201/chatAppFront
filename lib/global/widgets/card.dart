@@ -2,33 +2,39 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:front/data/data.dart';
 import 'package:front/global/global.dart';
+import 'package:front/routes.dart';
+import 'package:get/get.dart';
 
 class ChatCard extends StatelessWidget {
   const ChatCard({super.key, required this.data, required this.index});
-final Chat data;
-final int index;
+  final Chat data;
+  final int index;
   @override
   Widget build(BuildContext context) {
-    Color color = waterBlue, shadowColor = waterBlueShadow, textColor = black,  btnColor = orange, btnShadowColor = orangeShadow,  btnTextColor = black;
-    switch(index % 3) {
-case  0:
-color = blue;
-textColor = white;
-btnTextColor = white;
-btnColor = orange;
-btnShadowColor = orangeShadow;
-shadowColor = blueShadow;
-break;
-case 1:
-color = grayBlue;
-shadowColor = grayBlueShadow;
-textColor = black;
-btnTextColor = black;
-btnColor = whiteness;
-btnShadowColor = whitenessShadow;
-break;
+    Color color = waterBlue,
+        shadowColor = waterBlueShadow,
+        textColor = black,
+        btnColor = orange,
+        btnShadowColor = orangeShadow,
+        btnTextColor = black;
+    switch (index % 3) {
+      case 0:
+        color = blue;
+        textColor = white;
+        btnTextColor = white;
+        btnColor = orange;
+        btnShadowColor = orangeShadow;
+        shadowColor = blueShadow;
+        break;
+      case 1:
+        color = grayBlue;
+        shadowColor = grayBlueShadow;
+        textColor = black;
+        btnTextColor = black;
+        btnColor = whiteness;
+        btnShadowColor = whitenessShadow;
+        break;
     }
-
 
     return MainContainer(
       animate: true,
@@ -43,32 +49,58 @@ break;
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-Text('${data.name!.toUpperCase()}${data.number}_${data.groupNumber ?? ''}', style: Theme.of(context).textTheme.titleMedium!.copyWith(color: textColor, letterSpacing: -0.02),),
-space9,
-Padding(padding: EdgeInsets.only(left: tall), child: Text('$changes: 23', style: Theme.of(context).textTheme.labelLarge!.copyWith(color: textColor),),),
-space9,
-Padding(padding: const EdgeInsets.only(left: tall), child: 
-
-Row(
-  children: <Widget>[
-    Icon(Icons.person_2_outlined, color: textColor,),
-    
-    Text('$students: 100', style: Theme.of(context).textTheme.labelLarge!.copyWith(color: textColor)),
-  ],
-)
- ),
-
+              Text(
+                '${data.name!.toUpperCase()}${data.number}_${data.groupNumber ?? ''}',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(color: textColor, letterSpacing: -0.02),
+              ),
+              space9,
+              Padding(
+                padding: EdgeInsets.only(left: tall),
+                child: Text(
+                  '$changes: 23',
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge!
+                      .copyWith(color: textColor),
+                ),
+              ),
+              space9,
+              Padding(
+                  padding: const EdgeInsets.only(left: tall),
+                  child: Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.person_2_outlined,
+                        color: textColor,
+                      ),
+                      Text('$students: 100',
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge!
+                              .copyWith(color: textColor)),
+                    ],
+                  )),
             ],
           ),
-MainButton(
-  padding: const EdgeInsets.symmetric(vertical: regular, horizontal:large ),
-  onPressed: () {}, label: goChat, color: btnColor, shadowColor: btnShadowColor, textColor: btnTextColor,)
+          MainButton(
+            padding: const EdgeInsets.symmetric(
+                vertical: regular, horizontal: large),
+            onPressed: () {
+              Get.toNamed(Routes.message, arguments: [data.sId!]);
+            },
+            label: goChat,
+            color: btnColor,
+            shadowColor: btnShadowColor,
+            textColor: btnTextColor,
+          )
         ],
       ),
     );
   }
 }
-
 
 class ChooseGroupCard extends StatelessWidget {
   const ChooseGroupCard({super.key, required this.name, required this.uri});
@@ -80,50 +112,80 @@ class ChooseGroupCard extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-       CircleAvatar(
+        CircleAvatar(
           radius: (MediaQuery.of(context).size.width - (2 * medium)) / 3 / 2,
           backgroundColor: Colors.transparent,
-         child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: (MediaQuery.of(context).size.width - (2 * medium)) / 3 / 2 - 20,
-          backgroundImage: NetworkImage(uri),       ),
-       ),
-        
-        Text(name, style: Theme.of(context).textTheme.labelLarge!.copyWith(letterSpacing: -0.02),)
+          child: CircleAvatar(
+            backgroundColor: Colors.transparent,
+            radius:
+                (MediaQuery.of(context).size.width - (2 * medium)) / 3 / 2 - 20,
+            backgroundImage: NetworkImage(uri),
+          ),
+        ),
+        Text(
+          name,
+          style: Theme.of(context)
+              .textTheme
+              .labelLarge!
+              .copyWith(letterSpacing: -0.02),
+        )
       ],
     );
   }
 }
 
-
 class ChooseStudentCard extends StatelessWidget {
-  const ChooseStudentCard({super.key, required this.data, required this.index});
+  const ChooseStudentCard(
+      {super.key,
+      required this.data,
+      this.active = false,
+      required this.index});
   final User data;
   final int index;
-
+  final bool active;
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-
-          CircleAvatar(
-            radius: (MediaQuery.of(context).size.width - (2 * medium)) / 3/ 2,
-            backgroundColor: orange,
-            child: CircleAvatar(
-              
-            backgroundColor: Colors.transparent,
-            radius: (MediaQuery.of(context).size.width - (2 * medium)) / 3/ 2 - 20,
-            backgroundImage: NetworkImage(
-                
-                 data.uri ?? "https://www.ufe.edu.mn/image/%D0%BB%D0%BE%D0%B3%D0%BE%20%D0%B1%D0%BE%D1%81%D0%BE%D0%BE.png",
-               
+        Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: waterBlue, borderRadius: BorderRadius.circular(100)),
+                child: data.uri != null
+                    ? CachedNetworkImage(imageUrl: data.uri!)
+                    : Image.asset(
+                        imgTestUser,
+                      ),
               ),
-                   ),
-          ),
-       
-  
-        Text(data.nickname ?? "", style: Theme.of(context).textTheme.labelLarge!.copyWith(letterSpacing: -0.02),)
+            ),
+            if (active)
+              Positioned(
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: white, width: 5),
+                        color: green,
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Icon(
+                      Icons.check,
+                      color: white,
+                      size: 35,
+                    ),
+                  ))
+          ],
+        ),
+        Text(
+          data.nickname ?? "",
+          style: Theme.of(context)
+              .textTheme
+              .labelLarge!
+              .copyWith(letterSpacing: -0.02),
+        )
       ],
     );
   }

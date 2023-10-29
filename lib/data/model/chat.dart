@@ -1,6 +1,7 @@
 import 'package:front/data/data.dart';
 
 class Chat {
+  String? sId;
   String? types;
   String? name;
   String? nickname;
@@ -15,6 +16,7 @@ class Chat {
   Chat(
       {this.types,
       this.name,
+      this.sId,
       this.groupNumber,
       this.nickname,
       this.number,
@@ -26,6 +28,7 @@ class Chat {
 
   Chat.fromJson(Map<String, dynamic> json) {
     types = json['types'];
+    sId = json['_id'];
     name = json['name'];
     nickname = json['nickname'];
     number = json['number'];
@@ -47,6 +50,7 @@ class Chat {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['types'] = this.types;
+    data['_id'] = this.sId;
     data['name'] = this.name;
     data['nickname'] = this.nickname;
     data['number'] = this.number;

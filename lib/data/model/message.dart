@@ -1,7 +1,8 @@
 import 'package:front/data/data.dart';
+import 'package:front/global/global.dart';
 
 class Message {
-  String? messageType;
+  MessageTypes? messageType;
   String? content;
   String? chat;
   User? sender;

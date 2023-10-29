@@ -34,57 +34,57 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             Row(
               mainAxisAlignment: mainAxisAlignment,
               children: <Widget>[
-                 MainButton(
+                MainButton(
                   width: 32,
-                padding: const EdgeInsets.all(small),
-                onPressed: onTap,
-                // color: Colors.transparent,
-                // shadowColor: Colors.transparent,
-                borderRadius: 100,
-                child: const Icon(Icons.arrow_back_ios_new, size: 20, color: black,),
-              
-          ),
-            const SizedBox()
+                  padding: const EdgeInsets.all(small),
+                  onPressed: onTap,
+                  // color: Colors.transparent,
+                  // shadowColor: Colors.transparent,
+                  borderRadius: 100,
+                  child: const Icon(
+                    Icons.arrow_back_ios_new,
+                    size: 20,
+                    color: black,
+                  ),
+                ),
+                const SizedBox()
               ],
             ));
   }
 }
-
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key, required this.onTap});
   final Function() onTap;
   @override
   Widget build(BuildContext context) {
-final controller = Get.put(MainController());
+    final controller = Get.put(MainController());
     return Drawer(
-
-  child: ListView(
-
-    padding: EdgeInsets.zero,
-    children: [
-      const DrawerHeader(
-        decoration: BoxDecoration(
-          color: Colors.blue,
-        ),
-        child: Text('Drawer Header'),
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Text('Drawer Header'),
+          ),
+          ListTile(
+            title: const Text('Home'),
+            onTap: () {
+              Get.toNamed(Routes.main);
+              onTap();
+            },
+          ),
+          ListTile(
+            title: const Text(chats),
+            onTap: () {
+              onTap();
+              Get.toNamed(Routes.chat);
+            },
+          ),
+        ],
       ),
-      ListTile(
-        title: const Text('Home'),
-        onTap: () {
-          controller.currentIndex.value = 0;
-           onTap();
-        },
-      ),
-      ListTile(
-        title: const Text(chats),
-        onTap: () {
-          controller.currentIndex.value = 1;
-          onTap();
-        },
-      ),
-    ],
-  ),
-);
+    );
   }
 }

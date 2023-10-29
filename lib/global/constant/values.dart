@@ -33,159 +33,129 @@ List<Diagram> diagramValues = [
 ];
 const chatFilters = ['All'];
 
-
 List<Chat> groups = [
   Chat(
-    name: "MGM",
-    number: 331,
-    users: [User(), User()],
-    groupNumber: 231
-
-  ),
+      name: "MGM",
+      number: 331,
+      users: [User(), User()],
+      groupNumber: 231,
+      sId: '1'),
   Chat(
-    name: "MKT",
-    number: 221,
-    users: [User(), User()],
-    groupNumber: 375
-
-  ),
+      name: "MKT",
+      number: 221,
+      users: [User(), User()],
+      groupNumber: 375,
+      sId: '2'),
   Chat(
-    name: "DBM",
-    number: 221,
-    users: [User(), User()],
-    groupNumber: 257
-
-  ),
+      name: "DBM",
+      number: 221,
+      users: [User(), User()],
+      groupNumber: 257,
+      sId: '3'),
   Chat(
-    name: "BET",
-    number: 223,
-    users: [User(), User()],
-    groupNumber: 278
-
-  ),
+      name: "BET",
+      number: 223,
+      users: [User(), User()],
+      groupNumber: 278,
+      sId: '4'),
   Chat(
-    name: "LAW",
-    number: 333,
-    users: [User(), User()],
-    groupNumber: 299
-
-  ),
+      name: "LAW",
+      number: 333,
+      users: [User(), User()],
+      groupNumber: 299,
+      sId: '5'),
   Chat(
-    name: "LAW",
-    number: 333,
-    users: [User(), User()],
-    groupNumber: 299
-
-  ),
+      name: "LAW",
+      number: 333,
+      users: [User(), User()],
+      groupNumber: 299,
+      sId: '6'),
   Chat(
-    name: "LAW",
-    number: 333,
-    users: [User(), User()],
-    groupNumber: 299
-
-  ),
-  Chat(
-    name: "LAW",
-    number: 333,
-    users: [User(), User()],
-    groupNumber: 299
-
-  ),
-  Chat(
-    name: "LAW",
-    number: 333,
-    users: [User(), User()],
-    groupNumber: 299
-
-  ),
-  Chat(
-    name: "LAW",
-    number: 333,
-    users: [User(), User()],
-    groupNumber: 299
-
-  ),
-  Chat(
-    name: "LAW",
-    number: 333,
-    users: [User(), User()],
-    groupNumber: 299
-
-  ),
-  Chat(
-    name: "LAW",
-    number: 333,
-    users: [User(), User()],
-    groupNumber: 299
-
-  ),
-  Chat(
-    name: "LAW",
-    number: 333,
-    users: [User(), User()],
-    groupNumber: 299
-
-  ),
-  Chat(
-    name: "LAW",
-    number: 333,
-    users: [User(), User()],
-    groupNumber: 299
-
-  ),
-  Chat(
-    name: "LAW",
-    number: 333,
-    users: [User(), User()],
-    groupNumber: 299
-
-  ),
-  Chat(
-    name: "LAW",
-    number: 333,
-    users: [User(), User()],
-    groupNumber: 299
-
-  ),
+      name: "LAW",
+      number: 333,
+      users: [User(), User()],
+      groupNumber: 299,
+      sId: '7'),
 ];
 List<User> users = [
   User(
+    sId: '1',
     nickname: 'Эса',
-    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   ),
   User(
-    nickname: 'Эса',
-    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    sId: '2',
+    nickname: 'adsf',
   ),
   User(
-    nickname: 'Эса',
-    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    sId: '3',
+    nickname: 'asdfasdf',
   ),
   User(
-    nickname: 'Эса',
-    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    sId: '4',
+    nickname: 'adf',
   ),
   User(
-    nickname: 'Эса',
-    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    sId: '5',
+    nickname: 'aadf',
   ),
   User(
-    nickname: 'Эса',
-    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    sId: '6',
+    nickname: 'adsfds',
   ),
   User(
+    sId: '7',
     nickname: 'Эса',
-    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   ),
   User(
+    sId: '7',
     nickname: 'Эса',
-    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   ),
   User(
+    sId: '7',
     nickname: 'Эса',
-    uri:  'https://images.unsplash.com/photo-1610022027566-aa7e079e372f?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   ),
-
+  User(
+    sId: '7',
+    nickname: 'Эса',
+  ),
+  User(
+    sId: '7',
+    nickname: 'Эса',
+  ),
+  User(
+    sId: '7',
+    nickname: 'Эса',
+  ),
+  User(
+    sId: '7',
+    nickname: 'Эса',
+  ),
 ];
 
 List<String> createStepTexts = [chooseGroup, chooseStudent];
+List<Message> messages = [
+  Message(
+      messageType: MessageTypes.TEXT,
+      content:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      chat: '1',
+      sender: User(nickname: 'Eca', sId: '1')),
+  Message(
+      messageType: MessageTypes.TEXT,
+      content:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      chat: '1',
+      sender: User(nickname: 'Eca', sId: '1')),
+  Message(
+      messageType: MessageTypes.TEXT,
+      content:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      chat: '1',
+      sender: User(nickname: 'Bishu', sId: '2')),
+  Message(
+      messageType: MessageTypes.TEXT,
+      content:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      chat: '1',
+      sender: User(nickname: 'Dorj', sId: '3')),
+];

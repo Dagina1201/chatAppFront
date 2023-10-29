@@ -1,9 +1,11 @@
-enum StorageKeys {  token}
+enum StorageKeys { token }
 
+enum AlertStatus { success }
 
-enum AlertStatus {success}
-enum SnackbarType {success, warning, error}
+enum SnackbarType { success, warning, error }
 
+enum ChatTypes { TEAM, GROUP }
 
-enum ChatTypes {TEAM, GROUP}
-enum AlertType {success, warning, error}
+enum MessageTypes { LINK, TEXT }
+
+enum AlertType { success, warning, error }

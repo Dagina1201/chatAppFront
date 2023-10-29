@@ -6,7 +6,6 @@ const changes = 'Changes';
 const students = 'Students';
 const chats = 'Chats';
 
-
 // home
 const upComing = 'Upcoming';
 const newChats = 'New chats';
@@ -15,6 +14,10 @@ const completed = 'Completed';
 const weeklyActivity = 'Weekly activity';
 const today = 'Today';
 const add = 'Нэмэх';
+const added = 'Нэмсэн';
+const minus = 'Хасах';
+const choose = 'Сонгох';
+const chose = 'Сонгосон';
 const thanks = 'Баярлалаа';
 
 // chat
@@ -23,6 +26,8 @@ const team = 'Баг';
 const lessonCodeGroupNumber = 'Хичээлийн код, групийн дугаар';
 const createTeamChat = 'Багийн чат үүсгэх';
 
-// create chat 
+// create chat
 const chooseGroup = "Choose group";
 const chooseStudent = "Choose student";
+const addMember = "Гишүүдийг нэмэх";
+const search = "Хайх";
