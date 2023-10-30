@@ -155,8 +155,8 @@ class ChooseStudentCard extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                     color: waterBlue, borderRadius: BorderRadius.circular(100)),
-                child: data.uri != null
-                    ? CachedNetworkImage(imageUrl: data.uri!)
+                child: data.profileImg != null
+                    ? CachedNetworkImage(imageUrl: data.profileImg!)
                     : Image.asset(
                         imgTestUser,
                       ),

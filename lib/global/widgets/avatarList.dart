@@ -25,8 +25,8 @@ class AvatarListWidget extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: i % 2 == 0 ? blue : orange,
                         borderRadius: BorderRadius.circular(100)),
-                    child: e.uri != null
-                        ? CachedNetworkImage(imageUrl: e.uri!)
+                    child: e.profileImg != null
+                        ? CachedNetworkImage(imageUrl: e.profileImg!)
                         : Image.asset(
                             imgTestUser,
                             width: 26,

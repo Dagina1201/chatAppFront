@@ -1,6 +1,10 @@
 import 'package:front/data/data.dart';
 import 'package:front/global/constant/constant.dart';
 
+// const api = 'http://localhost:5000/api/';
+// bishu mac
+const api = 'http://192.168.68.102:5000/api/';
+
 const navBarValues = [
   {
     'icon': 'assets/icons/navigationBar/home.svg',
