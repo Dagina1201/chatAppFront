@@ -12,7 +12,7 @@ import 'package:get_storage/get_storage.dart';
 const socketUrl = 'http://192.168.1.2:8080/websocket';
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
-  await GetStorage.init();
+await GetStorage.init();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
