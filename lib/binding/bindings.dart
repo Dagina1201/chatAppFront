@@ -21,6 +21,14 @@ class AuthBinding extends Bindings {
     );
   }
 }
+class MessageBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<MessageController>(
+      () => MessageController(),
+    );
+  }
+}
 
 
 class HomeBinding extends Bindings {

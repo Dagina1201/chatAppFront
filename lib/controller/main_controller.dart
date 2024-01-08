@@ -15,6 +15,7 @@ class MainController extends GetxController
     loading.value = true;
     try {
       loading.value = false;
+      api.connectAndListen();
     } catch (e) {
       loading.value = false;
 
@@ -29,7 +30,7 @@ class MainController extends GetxController
 
   @override
   void onInit() async {
-    // await setupApp();
+    await setupApp();
     super.onInit();
   }
 }

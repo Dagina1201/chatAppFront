@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:front/controller/controllers.dart';
 import 'package:front/data/data.dart';
 import 'package:front/global/global.dart';
+import 'package:get/get.dart';
 
 class MessageView extends StatefulWidget {
   const MessageView({super.key, required this.id});
@@ -16,6 +18,7 @@ class _MessageViewState extends State<MessageView> {
   final GlobalKey<ScaffoldState> messageKey = GlobalKey<ScaffoldState>();
   List<Message> data = [];
   Chat chat = Chat();
+  final ctrl = Get.put(MessageController());
   ScrollController controller = ScrollController();
   @override
   void initState() {
@@ -79,7 +82,7 @@ class _MessageViewState extends State<MessageView> {
                   )
                 ],
               ),
-              space13,
+              space9,
               Text(
                 '${chat.name}${chat.number}${chat.groupNumber != null ? '_' : ""}${chat.groupNumber ?? ''}',
                 style: Theme.of(context)
@@ -133,11 +136,14 @@ class _MessageViewState extends State<MessageView> {
             huge -
             MediaQuery.of(context).padding.top -
             MediaQuery.of(context).padding.bottom,
-        padding: EdgeInsets.only(right: medium, bottom: regular, left: medium),
+        padding: EdgeInsets.only(right: medium, left: medium),
         child: Stack(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(top: 4),
+              padding: EdgeInsets.only(
+                top: 4,
+              ),
+
               // width: MediaQuery.of(context).size.width,
               // height: MediaQuery.of(context).size.height,
               child: ListView.builder(
@@ -146,7 +152,8 @@ class _MessageViewState extends State<MessageView> {
                   itemCount: data.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: EdgeInsets.only(bottom: 10),
+                      padding: EdgeInsets.only(
+                          bottom: index == data.length - 1 ? 30 : 10),
                       child: (Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -207,7 +214,7 @@ class _MessageViewState extends State<MessageView> {
                       )),
                     );
                   }),
-            )
+            ),
           ],
         ),
       ),

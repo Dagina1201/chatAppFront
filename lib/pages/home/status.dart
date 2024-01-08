@@ -23,31 +23,29 @@ class HomeStatusView extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    MainContainer(
-                      color: waterBlue,
-                      animate: false,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: medium, vertical: regular),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          Text(
-                            upComing,
-                            style: Theme.of(context).textTheme.labelMedium,
-                          ),
-                          space6,
-                          Txt(text: '50'),
-                          space6,
-                          Txt(
-                            text: newChats,
-                            style: Theme.of(context).textTheme.labelMedium,
-                          ),
-                        ],
+                    Expanded(
+                      child: MainContainer(
+                        color: waterBlue,
+                        animate: false,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: medium, vertical: regular),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Txt(text: upComing),
+                            space6,
+                            Txt(text: '50'),
+                            space6,
+                            Txt(text: newChats),
+                          ],
+                        ),
                       ),
                     ),
                     space13,
-                    MainContainer(
+                    Expanded(
+                        child: MainContainer(
                       animate: false,
                       color: orange,
                       padding: const EdgeInsets.symmetric(
@@ -55,9 +53,10 @@ class HomeStatusView extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text(
-                            semesterOff,
+                          Txt(
+                            text: semesterOff,
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium!
@@ -105,8 +104,8 @@ class HomeStatusView extends StatelessWidget {
                                 );
                               }),
                           space6,
-                          Text(
-                            completed,
+                          Txt(
+                            text: completed,
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium!
@@ -114,7 +113,7 @@ class HomeStatusView extends StatelessWidget {
                           ),
                         ],
                       ),
-                    )
+                    ))
                   ],
                 ),
               ),

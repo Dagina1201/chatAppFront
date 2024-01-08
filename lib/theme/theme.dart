@@ -8,7 +8,6 @@ import './text_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyTheme {
-
   static ThemeData light = ThemeData(
     primaryColor: primary,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -20,21 +19,35 @@ class MyTheme {
       backgroundColor: Colors.white,
       elevation: 8.0,
     ),
-    textTheme: GoogleFonts.nunitoSansTextTheme(
-      const TextTheme(
-        // displayLarge: largeDisplay,
-          displayMedium: mediumDisplay,
-          displaySmall: smallDisplay,
-          titleLarge: largeTitle,
-          titleMedium: mediumTitle,
-          titleSmall: smallTitle,
-          bodyLarge: largeBody,
-          bodyMedium: mediumBody,
-          bodySmall: smallBody,
-          labelLarge: largeLabel,
-          labelMedium: mediumLabel,
-          labelSmall: smallLabel,
-          ),
+    // textTheme: GoogleFonts.nunitoSansTextTheme(
+    //   const TextTheme(
+    //     // displayLarge: largeDisplay,
+    //       displayMedium: mediumDisplay,
+    //       displaySmall: smallDisplay,
+    //       titleLarge: largeTitle,
+    //       titleMedium: mediumTitle,
+    //       titleSmall: smallTitle,
+    //       bodyLarge: largeBody,
+    //       bodyMedium: mediumBody,
+    //       bodySmall: smallBody,
+    //       labelLarge: largeLabel,
+    //       labelMedium: mediumLabel,
+    //       labelSmall: smallLabel,
+    //       ),
+    // ),
+    textTheme: const TextTheme(
+      // displayLarge: largeDisplay,
+      displayMedium: mediumDisplay,
+      displaySmall: smallDisplay,
+      titleLarge: largeTitle,
+      titleMedium: mediumTitle,
+      titleSmall: smallTitle,
+      bodyLarge: largeBody,
+      bodyMedium: mediumBody,
+      bodySmall: smallBody,
+      labelLarge: largeLabel,
+      labelMedium: mediumLabel,
+      labelSmall: smallLabel,
     ),
     tabBarTheme: TabBarTheme(
       labelColor: secondary,

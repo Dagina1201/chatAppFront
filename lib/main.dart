@@ -1,4 +1,5 @@
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:front/binding/bindings.dart';
@@ -7,17 +8,25 @@ import 'package:front/routes.dart';
 import 'package:front/theme/theme.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-
-const socketUrl = 'http://192.168.1.2:8080/websocket';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+// import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:firebase_auth/firebase_auth.dart';
+const socketUrl = 'http://192.168.1.2:5000/websocket';
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
-await GetStorage.init();
+  await GetStorage.init();
+  
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark, statusBarColor: Colors.black));
   // HttpOverrides.global = MyHttpOverrides();
+    WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
    ErrorWidget.builder = (FlutterErrorDetails details) {
     return const Material();
   };

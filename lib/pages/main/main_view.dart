@@ -20,7 +20,6 @@ class _MainViewState extends State<MainView> {
   final controller = Get.put(MainController());
   final storage = GetStorage();
 
-
   @override
   void initState() {
     super.initState();
@@ -59,13 +58,13 @@ class _MainViewState extends State<MainView> {
           mainKey.currentState?.closeDrawer();
         }),
         body: Container(
-            height: MediaQuery.of(context).size.height -
-                huge -
-                MediaQuery.of(context).padding.top -
-                MediaQuery.of(context).padding.bottom,
-            padding:
-                EdgeInsets.only(right: medium, bottom: regular, left: medium),
-            child: HomeView()));
+          height: MediaQuery.of(context).size.height -
+              huge -
+              MediaQuery.of(context).padding.top -
+              MediaQuery.of(context).padding.bottom,
+          padding: EdgeInsets.only(right: medium, left: medium),
+          child: HomeView(),
+        ));
   }
 }
 

@@ -6,9 +6,14 @@ import 'package:front/routes.dart';
 import 'package:get/get.dart';
 
 class ChatCard extends StatelessWidget {
-  const ChatCard({super.key, required this.data, required this.index});
+  const ChatCard(
+      {super.key,
+      required this.data,
+      required this.index,
+      required this.onPressed});
   final Chat data;
   final int index;
+  final Function(String v) onPressed;
   @override
   Widget build(BuildContext context) {
     Color color = waterBlue,
@@ -88,8 +93,9 @@ class ChatCard extends StatelessWidget {
           MainButton(
             padding: const EdgeInsets.symmetric(
                 vertical: regular, horizontal: large),
-            onPressed: () {
-              Get.toNamed(Routes.message, arguments: [data.sId!]);
+            onPressed: () => {
+              Get.toNamed(Routes.message, arguments: [data.sId!]),
+              onPressed(data.sId!)
             },
             label: goChat,
             color: btnColor,

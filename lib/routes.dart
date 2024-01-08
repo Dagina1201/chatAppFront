@@ -82,6 +82,7 @@ class Routes {
             id: id,
           );
         },
+        binding: MessageBinding(),
         transition: Transition.fade,
         transitionDuration: const Duration(milliseconds: 100)),
   ];

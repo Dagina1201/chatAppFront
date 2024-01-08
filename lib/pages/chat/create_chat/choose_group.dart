@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:front/controller/chat_container.dart';
+import 'package:front/controller/chat_contoller.dart';
 import 'package:front/data/data.dart';
 import 'package:front/global/global.dart';
 import 'package:front/routes.dart';

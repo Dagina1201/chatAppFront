@@ -4,6 +4,7 @@ import 'package:front/data/data.dart';
 import 'package:front/global/global.dart';
 import 'package:front/global/util.dart';
 import 'package:front/pages/main/main.dart';
+import 'package:front/provider/provider.dart';
 import 'package:front/routes.dart';
 import 'package:get/get.dart';
 
@@ -56,7 +57,7 @@ class _ChatViewState extends State<ChatView> {
             huge -
             MediaQuery.of(context).padding.top -
             MediaQuery.of(context).padding.bottom,
-        padding: EdgeInsets.only(right: medium, bottom: regular, left: medium),
+        padding: EdgeInsets.only(right: medium, left: medium),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,8 +162,8 @@ class _ChatViewState extends State<ChatView> {
                               ),
                             ),
                             space20,
-                            Text(
-                              createTeamChat,
+                            Txt(
+                              text: createTeamChat,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodySmall!
@@ -185,15 +186,16 @@ class _ChatViewState extends State<ChatView> {
                         children: <Widget>[
                           Icon(Icons.search),
                           space13,
-                          Text(
-                            lessonCodeGroupNumber,
+                          Flexible(
+                              child: Txt(
+                            text: lessonCodeGroupNumber,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
                                 .copyWith(
                                     color: placeholderColor,
                                     letterSpacing: -0.02),
-                          )
+                          ))
                         ],
                       ),
                     ),
@@ -271,11 +273,19 @@ class _ChatViewState extends State<ChatView> {
               space9,
               ...groups.map((e) {
                 int index = groups.indexOf(e);
-                return ChatCard(
-                  data: e,
-                  index: index,
-                );
-              })
+                return StreamBuilder(stream: streamSocket.getResponse, builder: (BuildContext context, AsyncSnapshot snapshop) {
+                  return Text(snapshop.data.toString());
+                //   return ChatCard(
+                //   data: e,
+                //   index: index,
+                //   onPressed: (v) {
+                //     print(v);
+                //     print(snapsho)
+                //   },
+                // );
+                });
+              }),
+              space20
             ],
           ),
         ),

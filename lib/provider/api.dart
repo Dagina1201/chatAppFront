@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:front/data/data.dart';
@@ -6,17 +8,33 @@ import 'package:front/global/global.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 typedef EitherUser<T> = Future<Either<String, User>>;
 typedef EitherResponse<T> = Future<Either<String, ResponseModel>>;
 typedef EitherToken<T> = Future<Either<String, String>>;
 typedef EitherSuccess<T> = Future<Either<String, bool>>;
 
+class StreamSocket {
+  final _socketResponse = StreamController<String>.broadcast();
+
+  void Function(String) get addResponse => _socketResponse.sink.add;
+
+  Stream<String> get getResponse => _socketResponse.stream;
+
+  void dispose() {
+    _socketResponse.close();
+  }
+}
+
+StreamSocket streamSocket = StreamSocket();
+
 class Api extends GetxService {
   final isProduction = const bool.fromEnvironment('dart.vm.product');
   var dio = createDio();
   static var storage = GetStorage();
   final token = storage.read(StorageKeys.token.name);
+
   static Dio createDio() {
     Dio dio = Dio(BaseOptions(
       baseUrl: api,
@@ -39,6 +57,23 @@ class Api extends GetxService {
       ],
     );
     return dio;
+  }
+
+  void connectAndListen() {
+    IO.Socket socket =
+        IO.io(url, IO.OptionBuilder().setTransports(['websocket']).build());
+
+    socket.onConnect((_) {
+      print('connect');
+      socket.emit('test', 'test1');
+    });
+
+    //When an event recieved from server, data is added to the stream
+    socket.on('test', (data) => {
+      print(data),
+      streamSocket.addResponse(data)
+    });
+    socket.onDisconnect((_) => print('disconnect'));
   }
 
   EitherResponse<String> login(User user) async {

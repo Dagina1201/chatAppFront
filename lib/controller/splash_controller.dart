@@ -7,15 +7,13 @@ import 'package:get_storage/get_storage.dart';
 import 'dart:developer' as dev;
 
 class SplashController extends GetxController {
-
   late Worker worker;
   final storage = GetStorage();
- final token = Rxn<String?>();
+  final token = Rxn<String?>();
   // final mainController = Get.put(MainController());
   @override
   void onInit() async {
     try {
-      
       final isCurrent = await _isCurrentVersion();
       if (isCurrent == null) {
       } else {
@@ -31,15 +29,12 @@ class SplashController extends GetxController {
     super.onInit();
   }
 
-
   Future<bool?> _isCurrentVersion() async {
     try {
       return true;
     } on DioException {
       return null;
-    } catch(e) {
-
-
+    } catch (e) {
       return null;
     }
   }
@@ -47,23 +42,23 @@ class SplashController extends GetxController {
   /// CHECKING UPDATE VERSION
 
   _checkAuthStatus() async {
-    await Future.delayed(const Duration(milliseconds: 1800));
-    
+    print('tkn: ');
     worker = ever<String?>(
-       token  ,
+      token,
       (tkn) async {
+        print(tkn);
+        print('tkn: ${tkn}');
         if (tkn != null) {
           // await storage.write(StorageKeys.currentPage.name, 0);
           Get.toNamed(Routes.main);
         } else {
-          Get.toNamed(Routes.auth);
+          Get.toNamed(Routes.main);
+          // Get.toNamed(Routes.auth);
         }
       },
     );
     token.value = storage.read(StorageKeys.token.name);
-    
   }
- 
 
   @override
   void dispose() {
