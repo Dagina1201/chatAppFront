@@ -273,17 +273,18 @@ class _ChatViewState extends State<ChatView> {
               space9,
               ...groups.map((e) {
                 int index = groups.indexOf(e);
-                return StreamBuilder(stream: streamSocket.getResponse, builder: (BuildContext context, AsyncSnapshot snapshop) {
-                  return Text(snapshop.data.toString());
-                //   return ChatCard(
-                //   data: e,
-                //   index: index,
-                //   onPressed: (v) {
-                //     print(v);
-                //     print(snapsho)
-                //   },
-                // );
-                });
+                return StreamBuilder(
+                    stream: streamSocket.getResponse,
+                    builder: (BuildContext context, AsyncSnapshot snapshop) {
+                      // return Text(snapshop.data.toString());
+                      return ChatCard(
+                        data: e,
+                        index: index,
+                        onPressed: (v) {
+                          print(v);
+                        },
+                      );
+                    });
               }),
               space20
             ],

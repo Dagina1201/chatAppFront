@@ -137,7 +137,7 @@ class HomeStatusView extends StatelessWidget {
                         ),
                         space22,
                         AspectRatio(
-                          aspectRatio: 0.95,
+                          aspectRatio: 1,
                           child: Container(
                               width: double.infinity,
                               child: Row(

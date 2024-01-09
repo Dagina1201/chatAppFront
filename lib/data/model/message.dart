@@ -2,6 +2,7 @@ import 'package:front/data/data.dart';
 import 'package:front/global/global.dart';
 
 class Message {
+  String? sId;
   MessageTypes? messageType;
   String? content;
   String? chat;
@@ -11,6 +12,7 @@ class Message {
 
   Message(
       {this.messageType,
+      this.sId,
       this.content,
       this.chat,
       this.sender,
@@ -18,11 +20,11 @@ class Message {
       this.usersReaction});
 
   Message.fromJson(Map<String, dynamic> json) {
-    messageType = json['messageType'];
+    messageType = json['messageType'] != null ? MessageTypes.fromJson(json['messageType']) : null;
+    sId = json['_id'];
     content = json['content'];
     chat = json['chat'];
-    sender =
-        json['sender'] != null ? new User.fromJson(json['sender']) : null;
+    sender = json['sender'] != null ? new User.fromJson(json['sender']) : null;
     if (json['reactions'] != null) {
       reactions = <Reactions>[];
       json['reactions'].forEach((v) {
@@ -41,6 +43,7 @@ class Message {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['messageType'] = this.messageType;
     data['content'] = this.content;
+    data['_id'] = sId;
     data['chat'] = this.chat;
     if (this.sender != null) {
       data['sender'] = this.sender!.toJson();
@@ -92,21 +95,20 @@ class Reactions {
 }
 
 class UsersReaction {
-  User? user;
+  String? user;
   String? reaction;
 
   UsersReaction({this.user, this.reaction});
 
   UsersReaction.fromJson(Map<String, dynamic> json) {
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'];
     reaction = json['reaction'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
-    }
+
+    data['user'] = this.user;
     data['reaction'] = this.reaction;
     return data;
   }

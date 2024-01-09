@@ -25,6 +25,7 @@ const lesson = 'Хичээл';
 const team = 'Баг';
 const lessonCodeGroupNumber = 'Хичээлийн код, групийн дугаар';
 const createTeamChat = 'Багийн чат үүсгэх';
+const typeMessage = 'Type a message';
 
 // create chat
 const chooseGroup = "Choose group";

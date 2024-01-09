@@ -40,3 +40,4 @@ const textGray = Color(0xff787878);
 const textBlack = Color(0xff061430);
 const searchTextGray = Color(0xff6F6F6F);
 const dropGray = Color(0xff46597D);
+const inputGray = Color(0xffB3B3B3);

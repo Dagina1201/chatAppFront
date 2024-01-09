@@ -16,11 +16,13 @@ typedef EitherToken<T> = Future<Either<String, String>>;
 typedef EitherSuccess<T> = Future<Either<String, bool>>;
 
 class StreamSocket {
-  final _socketResponse = StreamController<String>.broadcast();
+  final _socketResponse = StreamController<List<Message>?>.broadcast();
 
-  void Function(String) get addResponse => _socketResponse.sink.add;
+  void Function(List<Message>?) get addResponse => _socketResponse.sink.add;
+  void Function(List<Message>?) get sendMessage => _socketResponse.sink.add;
 
-  Stream<String> get getResponse => _socketResponse.stream;
+  Stream<List<Message>?> get getResponse => _socketResponse.stream;
+  Stream<List<Message>?> get getMessage => _socketResponse.stream;
 
   void dispose() {
     _socketResponse.close();
@@ -34,7 +36,7 @@ class Api extends GetxService {
   var dio = createDio();
   static var storage = GetStorage();
   final token = storage.read(StorageKeys.token.name);
-
+  var socket = createSocket();
   static Dio createDio() {
     Dio dio = Dio(BaseOptions(
       baseUrl: api,
@@ -59,21 +61,32 @@ class Api extends GetxService {
     return dio;
   }
 
-  void connectAndListen() {
+  static IO.Socket createSocket() {
     IO.Socket socket =
         IO.io(url, IO.OptionBuilder().setTransports(['websocket']).build());
 
     socket.onConnect((_) {
       print('connect');
-      socket.emit('test', 'test1');
     });
 
-    //When an event recieved from server, data is added to the stream
-    socket.on('test', (data) => {
-      print(data),
-      streamSocket.addResponse(data)
-    });
+    try {
+      socket.on(
+          'message',
+          (data) => {
+            print(MessageTypes.TEXT)
+                // if (data != null && data['messages'] != null)
+                //   {
+                //     streamSocket.addResponse((data['messages'] as List)
+                //         .map((e) => Message.fromJson(e))
+                //         .toList()),
+                //   }
+              });
+    } catch (e) {
+      print("error $e");
+    }
+
     socket.onDisconnect((_) => print('disconnect'));
+    return socket;
   }
 
   EitherResponse<String> login(User user) async {

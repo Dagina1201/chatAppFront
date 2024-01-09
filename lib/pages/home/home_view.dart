@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:front/controller/chat_contoller.dart';
 import 'package:front/data/data.dart';
 import 'package:front/global/constant/constant.dart';
 import 'package:front/global/global.dart';
 import 'package:front/pages/pages.dart';
 import 'package:front/provider/provider.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class HomeView extends StatefulWidget {
@@ -15,6 +17,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   String filteredChatType = chatFilters[0];
+  final chatController = Get.put(ChatController());
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -23,9 +26,9 @@ class _HomeViewState extends State<HomeView> {
       children: <Widget>[
         space50,
         space4,
-        // HomeStatusView(
-        //   list: diagramValues,
-        // ),
+        HomeStatusView(
+          list: diagramValues,
+        ),
         space45,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,15 +66,13 @@ class _HomeViewState extends State<HomeView> {
           return StreamBuilder(
               stream: streamSocket.getResponse,
               builder: (BuildContext context, AsyncSnapshot snapshop) {
-                return Text(snapshop.data.toString());
-                //   return ChatCard(
-                //   data: e,
-                //   index: index,
-                //   onPressed: (v) {
-                //     print(v);
-                //     print(snapsho)
-                //   },
-                // );
+                return ChatCard(
+                  data: e,
+                  index: index,
+                  onPressed: (v) {
+                    chatController.connect("659ceee0335be42e8e4e25cd");
+                  },
+                );
               });
         }),
         space20

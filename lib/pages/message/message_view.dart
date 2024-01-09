@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:front/controller/controllers.dart';
 import 'package:front/data/data.dart';
 import 'package:front/global/global.dart';
+import 'package:front/provider/api.dart';
 import 'package:get/get.dart';
 
 class MessageView extends StatefulWidget {
@@ -32,6 +34,8 @@ class _MessageViewState extends State<MessageView> {
     super.initState();
   }
 
+  List<Message>? allMessage;
+
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration.zero, () {
@@ -39,7 +43,7 @@ class _MessageViewState extends State<MessageView> {
     });
     return Scaffold(
       key: messageKey,
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: PreferredSize(
         preferredSize:
             Size.fromHeight(150 + MediaQuery.of(context).padding.top),
@@ -140,81 +144,156 @@ class _MessageViewState extends State<MessageView> {
         child: Stack(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(
-                top: 4,
-              ),
-
-              // width: MediaQuery.of(context).size.width,
-              // height: MediaQuery.of(context).size.height,
-              child: ListView.builder(
-                  controller: controller,
-                  shrinkWrap: true,
-                  itemCount: data.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(
-                          bottom: index == data.length - 1 ? 30 : 10),
-                      child: (Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          if (index % 2 == 0)
-                            Container(
-                              margin: EdgeInsets.only(right: 13),
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                  color: blue,
-                                  borderRadius: BorderRadius.circular(100)),
-                              alignment: Alignment.center,
-                              child: Image.asset(
-                                imgTestUser,
-                                width: 45,
-                              ),
-                            ),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: index % 2 == 0
-                                ? CrossAxisAlignment.start
-                                : CrossAxisAlignment.end,
-                            children: <Widget>[
-                              Text(data[index].sender!.nickname!),
-                              space4,
-                              Container(
-                                width: MediaQuery.of(context).size.width - 120,
-                                decoration: BoxDecoration(
-                                    color: searchColor,
-                                    borderRadius:
-                                        BorderRadius.circular(borderRadius15)),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 16, horizontal: 21),
-                                child: Text(
-                                  data[index].content!,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(letterSpacing: -0.02),
+              padding: EdgeInsets.only(top: 4, bottom: 40),
+              child: StreamBuilder(
+                  stream: streamSocket.getMessage,
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.data != null && snapshot.data != Null) {
+                      // allMessage = (json.decode(snapshot.data) as List).map((e) => Message.fromJson(e)).toList();
+                      print(snapshot.data.runtimeType);
+                      print(jsonDecode(snapshot.data).runtimeType);
+                    }
+                    try {
+                      // print((json.decode(snapshot.data.trim()) as List)
+                      //     .map((e) => Message.fromJson(e))
+                      //     .toList());
+                    } catch (e) {
+                      print('err $e');
+                    }
+                    // print(snapshot.data);
+                    print(allMessage);
+                    return ListView.builder(
+                        controller: controller,
+                        shrinkWrap: true,
+                        itemCount: data.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.only(
+                                bottom: index == data.length - 1 ? 30 : 10),
+                            child: (Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                if (index % 2 == 0)
+                                  Container(
+                                    margin: EdgeInsets.only(right: 13),
+                                    padding: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        color: blue,
+                                        borderRadius:
+                                            BorderRadius.circular(100)),
+                                    alignment: Alignment.center,
+                                    child: Image.asset(
+                                      imgTestUser,
+                                      width: 45,
+                                    ),
+                                  ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: index % 2 == 0
+                                      ? CrossAxisAlignment.start
+                                      : CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    Text(data[index].sender!.nickname!),
+                                    space4,
+                                    Container(
+                                      width: MediaQuery.of(context).size.width -
+                                          120,
+                                      decoration: BoxDecoration(
+                                          color: searchColor,
+                                          borderRadius: BorderRadius.circular(
+                                              borderRadius15)),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 16, horizontal: 21),
+                                      child: Text(
+                                        data[index].content!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(letterSpacing: -0.02),
+                                      ),
+                                    )
+                                  ],
                                 ),
-                              )
-                            ],
-                          ),
-                          if (index % 2 != 0)
-                            Container(
-                              margin: EdgeInsets.only(left: 13),
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                  color: blue,
-                                  borderRadius: BorderRadius.circular(100)),
-                              alignment: Alignment.center,
-                              child: Image.asset(
-                                imgTestUser,
-                                width: 45,
-                              ),
-                            ),
-                        ],
-                      )),
-                    );
+                                if (index % 2 != 0)
+                                  Container(
+                                    margin: EdgeInsets.only(left: 13),
+                                    padding: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        color: blue,
+                                        borderRadius:
+                                            BorderRadius.circular(100)),
+                                    alignment: Alignment.center,
+                                    child: Image.asset(
+                                      imgTestUser,
+                                      width: 45,
+                                    ),
+                                  ),
+                              ],
+                            )),
+                          );
+                        });
                   }),
             ),
+            Positioned(
+                bottom: 8,
+                left: 0,
+                right: 0,
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        MainButton(
+                          onPressed: () {},
+                          shadow: false,
+                          color: blue,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: tiny, vertical: tiny),
+                          child: Icon(
+                            Icons.add,
+                            color: white,
+                          ),
+                        ),
+                        space13,
+                        Flexible(
+                          child: TextField(
+                            decoration: InputDecoration(
+                                // border: Border.all(borderRadius15)
+                                fillColor: searchColor,
+                                filled: true,
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 14),
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(borderRadius15))),
+                                hintText: typeMessage,
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(color: inputGray)),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(color: inputGray),
+                          ),
+                        ),
+                        space13,
+                        MainButton(
+                          onPressed: () {},
+                          shadow: false,
+                          color: Colors.transparent,
+                          padding: EdgeInsets.zero,
+                          child: Icon(
+                            Icons.send,
+                            color: blue,
+                            size: 36,
+                          ),
+                        ),
+                      ],
+                    )))
           ],
         ),
       ),

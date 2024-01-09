@@ -20,13 +20,13 @@ class MessageController extends GetxController {
     try {
       chats.value = groups;
       searchUsers.value = users;
-     
     } on Exception catch (e) {
       dev.log(e.toString());
     }
     super.onInit();
   }
 
+ 
   @override
   void dispose() {
     super.dispose();

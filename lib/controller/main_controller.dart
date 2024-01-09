@@ -15,7 +15,7 @@ class MainController extends GetxController
     loading.value = true;
     try {
       loading.value = false;
-      api.connectAndListen();
+      // api.connectAndListen();
     } catch (e) {
       loading.value = false;
 

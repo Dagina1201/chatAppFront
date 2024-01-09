@@ -20,11 +20,20 @@ class ChatController extends GetxController {
     try {
       chats.value = groups;
       searchUsers.value = users;
-   
     } on Exception catch (e) {
       dev.log(e.toString());
     }
     super.onInit();
+  }
+
+  void connect(String chat) {
+    api.socket.emit('join', "659ceee0335be42e8e4e25cd");
+    api.socket.emit('message', {
+      "chat": "659ceee0335be42e8e4e25cd",
+      "sender": "652227f0a08d7adcbfbf28ea",
+      // "content": "tes123123 adsf adsf",
+      "messageType": "TEXT"
+    });
   }
 
   @override

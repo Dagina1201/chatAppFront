@@ -5,6 +5,15 @@ import 'package:front/global/constant/constant.dart';
 // bishu mac
 const api = 'http://192.168.68.102:5000/api/';
 const url = 'http://192.168.1.2:5000';
+// dorjiy dorjoohover
+const user1 = "652227c1517423fded167b17";
+const user1Tkn = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvcmpvb2hvdmVyQHVmZS5lZHUubW4iLCJpYXQiOjE3MDQ3ODI1OTAsImV4cCI6MTcwNTM4NzM5MH0.e9Ab3qc5KxZ_mjIQBMsuC2u3cWG4FjcTV8jhBKRv5bg";
+//dorj b20fa1709
+const user2 = "652227f0a08d7adcbfbf28ea";
+const user2Tkn = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImIyMGZhMTcwOUB1ZmUuZWR1Lm1uIiwiaWF0IjoxNzA0NzgyNjIzLCJleHAiOjE3MDUzODc0MjN9.gm9T9KXG1bOtkUFsdSlv9JWQVzHUSKLz6CLitzAsSig";
+// teacher ddorjoo
+const teacherTkn = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRkb3Jqb28yNjhAdWZlLmVkdS5tbiIsImlhdCI6MTcwNDc4MzAwMiwiZXhwIjoxNzA1Mzg3ODAyfQ.OARzFK1BqsRU7jZaoGO9NTvQ_4AQVlFJFFz9hky5J1s";
+const teacher1 = "659cebb17ec673b2d3edd3b5";
 const navBarValues = [
   {
     'icon': 'assets/icons/navigationBar/home.svg',
