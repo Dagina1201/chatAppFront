@@ -10,9 +10,14 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
+import 'dart:developer' as dev;
+
 typedef EitherUser<T> = Future<Either<String, User>>;
+typedef EitherChats<T> = Future<Either<String, List<Chat>>>;
+typedef EitherUsers<T> = Future<Either<String, List<User>>>;
 typedef EitherResponse<T> = Future<Either<String, ResponseModel>>;
-typedef EitherToken<T> = Future<Either<String, String>>;
+typedef EitherText<T> = Future<Either<String, String>>;
+
 typedef EitherSuccess<T> = Future<Either<String, bool>>;
 
 class StreamSocket {
@@ -46,8 +51,9 @@ class Api extends GetxService {
         InterceptorsWrapper(
           onRequest: (options, handler) async {
             // get token from storage
-            final token = storage.read(StorageKeys.token.name);
-
+            // final token = storage.read(StorageKeys.token.name);
+            final token =
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvcmpvb2hvdmVyQHVmZS5lZHUubW4iLCJpYXQiOjE3MDUxNTc0ODAsImV4cCI6MTcwNTc2MjI4MH0.E4BzwGSCFdvd-obD9NLcAhr6fn1qo9pXgoOhgYriMJs";
             if (token != null) {
               options.headers['Authorization'] = 'Bearer $token';
             } else {}
@@ -66,28 +72,29 @@ class Api extends GetxService {
         IO.io(url, IO.OptionBuilder().setTransports(['websocket']).build());
 
     socket.onConnect((_) {
-      print('connect');
+      dev.log('connected');
     });
 
     try {
       socket.on(
           'message',
           (data) => {
-            print(MessageTypes.TEXT)
-                // if (data != null && data['messages'] != null)
-                //   {
-                //     streamSocket.addResponse((data['messages'] as List)
-                //         .map((e) => Message.fromJson(e))
-                //         .toList()),
-                //   }
+                if (data != null && data['messages'] != null)
+                  {
+                    streamSocket.addResponse((data['messages'] as List)
+                        .map((e) => Message.fromJson(e))
+                        .toList()),
+                  }
               });
     } catch (e) {
-      print("error $e");
+      dev.log(e.toString());
     }
 
     socket.onDisconnect((_) => print('disconnect'));
     return socket;
   }
+
+  // auth
 
   EitherResponse<String> login(User user) async {
     try {
@@ -105,11 +112,12 @@ class Api extends GetxService {
       }
       return left(res.data['message']);
     } catch (e) {
-      return left(e.toString());
+      dev.log(e.toString());
+      return left(ErrorMessage.occured);
     }
   }
 
-  EitherToken<String> register(
+  EitherText<String> register(
       String phone, String password, String firstName, String lastName) async {
     try {
       final data = {
@@ -125,7 +133,8 @@ class Api extends GetxService {
       }
       return left(res.data['message']);
     } catch (e) {
-      return left(e.toString());
+      dev.log(e.toString());
+      return left(ErrorMessage.occured);
     }
   }
 
@@ -139,7 +148,79 @@ class Api extends GetxService {
 
       return left("Нэвтрэнэ үү.");
     } catch (e) {
-      return left(e.toString());
+      dev.log(e.toString());
+      return left(ErrorMessage.occured);
+    }
+  }
+
+  // chat
+  EitherChats<List<Chat>> getChats(ChatTypes type) async {
+    try {
+      final res = await dio.get('/chat/me/${type.name}');
+
+      if (res.statusCode == 200) {
+        return right((res.data as List).map((e) => Chat.fromJson(e)).toList());
+      }
+
+      return left(ErrorMessage.occured);
+    } catch (e) {
+      dev.log(e.toString());
+
+      return left(ErrorMessage.occured);
+    }
+  }
+
+  EitherSuccess<bool> createChat(
+      ChatTypes type, String chat, List<String> users) async {
+    try {
+      final body = {
+        "types": type.name,
+        "chat": chat,
+        "users": users,
+      };
+      final res = await dio.post('/chat', data: body);
+      
+      if (res.statusCode == 201) {
+        return right(true);
+      }
+
+      return left(ErrorMessage.occured);
+    } catch (e) {
+      dev.log(e.toString());
+
+      return left(ErrorMessage.occured);
+    }
+  }
+
+  EitherChats<List<Chat>> search(ChatTypes type, String value) async {
+    try {
+      final res = await dio.get('/chat/search/${type.name}/$value');
+
+      if (res.statusCode == 200) {
+        return right((res.data as List).map((e) => Chat.fromJson(e)).toList());
+      }
+
+      return left(ErrorMessage.occured);
+    } catch (e) {
+      dev.log(e.toString());
+
+      return left(ErrorMessage.occured);
+    }
+  }
+
+  EitherUsers<List<User>> searchUsers(UserTypes type, String value) async {
+    try {
+      final res = await dio.get('/user/search/${type.name}/$value');
+
+      if (res.statusCode == 200) {
+        return right((res.data as List).map((e) => User.fromJson(e)).toList());
+      }
+
+      return left(ErrorMessage.occured);
+    } catch (e) {
+      dev.log(e.toString());
+
+      return left(ErrorMessage.occured);
     }
   }
 }

@@ -16,8 +16,14 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  String filteredChatType = chatFilters[0];
+  ChatTypes filteredChatType = chatFilters[0];
   final chatController = Get.put(ChatController());
+  @override
+  void initState() {
+    chatController.getChats(ChatTypes.ALL);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -40,11 +46,11 @@ class _HomeViewState extends State<HomeView> {
               value: filteredChatType,
               underline: const SizedBox(),
               icon: const Icon(Icons.keyboard_arrow_down),
-              items: chatFilters.map((String items) {
+              items: chatFilters.map((ChatTypes items) {
                 return DropdownMenuItem(
                   value: items,
                   child: Text(
-                    items,
+                    items.name,
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall!
@@ -52,29 +58,34 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 );
               }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  filteredChatType = newValue!;
-                });
+              onChanged: (ChatTypes? v) {
+                if (v != null) {
+                  setState(() {
+                    filteredChatType = v;
+                  });
+                  chatController.getChats(v);
+                }
               },
             ),
           ],
         ),
         space20,
-        ...groups.map((e) {
-          int index = groups.indexOf(e);
-          return StreamBuilder(
-              stream: streamSocket.getResponse,
-              builder: (BuildContext context, AsyncSnapshot snapshop) {
-                return ChatCard(
-                  data: e,
-                  index: index,
-                  onPressed: (v) {
-                    chatController.connect("659ceee0335be42e8e4e25cd");
-                  },
-                );
-              });
-        }),
+        Obx(() => ListView.builder(
+              shrinkWrap: true,
+              itemCount: chatController.chats.length,
+              itemBuilder: (context, index) => StreamBuilder(
+                  stream: streamSocket.getResponse,
+                  builder: (BuildContext context, AsyncSnapshot snapshop) {
+                    return ChatCard(
+                      data: chatController.chats[index],
+                      index: index,
+                      onPressed: (v) {
+                        chatController
+                            .connect(chatController.chats[index].sId!);
+                      },
+                    );
+                  }),
+            )),
         space20
       ],
     ));

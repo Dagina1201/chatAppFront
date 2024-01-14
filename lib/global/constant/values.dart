@@ -3,7 +3,10 @@ import 'package:front/global/constant/constant.dart';
 
 // const api = 'http://localhost:5000/api/';
 // bishu mac
-const api = 'http://192.168.68.102:5000/api/';
+// const api = 'http://192.168.68.102:5000/api/';
+// const url = 'http://192.168.68.102:5000';
+// dorjoo
+const api = 'http://192.168.1.2:5000/api/';
 const url = 'http://192.168.1.2:5000';
 // dorjiy dorjoohover
 const user1 = "652227c1517423fded167b17";
@@ -44,49 +47,49 @@ List<Diagram> diagramValues = [
   Diagram(active: 0.9, name: 'thu', value: 0.9),
   Diagram(active: 1, name: 'fri', value: 1)
 ];
-const chatFilters = ['All'];
+const chatFilters = [ChatTypes.ALL, ChatTypes.GROUP, ChatTypes.TEAM];
 
 List<Chat> groups = [
   Chat(
       name: "MGM",
       number: 331,
-      users: [User(), User()],
+      users: [],
       groupNumber: 231,
       sId: '1'),
   Chat(
       name: "MKT",
       number: 221,
-      users: [User(), User()],
+      users: [],
       groupNumber: 375,
       sId: '2'),
   Chat(
       name: "DBM",
       number: 221,
-      users: [User(), User()],
+      users: [],
       groupNumber: 257,
       sId: '3'),
   Chat(
       name: "BET",
       number: 223,
-      users: [User(), User()],
+      users: [],
       groupNumber: 278,
       sId: '4'),
   Chat(
       name: "LAW",
       number: 333,
-      users: [User(), User()],
+      users: [],
       groupNumber: 299,
       sId: '5'),
   Chat(
       name: "LAW",
       number: 333,
-      users: [User(), User()],
+      users: [],
       groupNumber: 299,
       sId: '6'),
   Chat(
       name: "LAW",
       number: 333,
-      users: [User(), User()],
+      users: [],
       groupNumber: 299,
       sId: '7'),
 ];

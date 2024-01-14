@@ -23,6 +23,20 @@ class _ChatViewState extends State<ChatView> {
   final mainController = Get.put(MainController());
   final GlobalKey<ScaffoldState> chatKey = GlobalKey<ScaffoldState>();
   @override
+  void initState() {
+    super.initState();
+    getChats();
+  }
+
+  void getChats() {
+    if (isTeam) {
+      controller.getChats(ChatTypes.TEAM);
+    } else {
+      controller.getChats(ChatTypes.GROUP);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: chatKey,
@@ -97,6 +111,7 @@ class _ChatViewState extends State<ChatView> {
                           setState(() {
                             isTeam = !isTeam;
                           });
+                          getChats();
                         }
                       },
                     )),
@@ -128,6 +143,7 @@ class _ChatViewState extends State<ChatView> {
                           setState(() {
                             isTeam = !isTeam;
                           });
+                          getChats();
                         }
                       },
                     )),
@@ -200,70 +216,6 @@ class _ChatViewState extends State<ChatView> {
                       ),
                     ),
               space4,
-              // if (controller.chats.isNotEmpty && !isTeam)
-              //   ...controller.chats.map((e) {
-              //     int index = chatsValues.indexOf(e);
-              //     return MainContainer(
-              //         margin: EdgeInsets.only(
-              //             bottom: index == chatsValues.length - 1 ? 0 : 4),
-              //         color: searchColor,
-              //         padding: EdgeInsets.symmetric(
-              //             vertical: regular, horizontal: large),
-              //         borderRadius: index == chatsValues.length - 1
-              //             ? BorderRadius.only(
-              //                 bottomRight: Radius.circular(borderRadius16),
-              //                 bottomLeft: Radius.circular(borderRadius16))
-              //             : BorderRadius.circular(0),
-              //         shadow: true,
-              //         shadowColor: searchShadowColor,
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //           children: <Widget>[
-              //             Text(
-              //               '${e.name}${e.number}_${e.groupNumber ?? ''}',
-              //               style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              //                   color: placeholderColor, letterSpacing: -0.02),
-              //             ),
-              //             MainButton(
-              //               onPressed: () {
-              //                 util.mainAlertDialog(
-              //                     'Пүүх!',
-              //                     'Та ${e.name}${e.number}_${e.groupNumber ?? ''} хичээлийн групийг амжилттай нэмлээ. ',
-              //                     context,
-              //                     AlertType.success);
-              //               },
-              //               color: Colors.transparent,
-              //               padding: EdgeInsets.zero,
-              //               shadow: false,
-              //               child: Row(
-              //                 mainAxisSize: MainAxisSize.min,
-              //                 children: <Widget>[
-              //                   Text(
-              //                     add,
-              //                     style: Theme.of(context)
-              //                         .textTheme
-              //                         .bodySmall!
-              //                         .copyWith(
-              //                           color: orange,
-              //                           letterSpacing: -0.02,
-              //                         ),
-              //                   ),
-              //                   space6,
-              //                   Container(
-              //                       padding: EdgeInsets.all(4),
-              //                       decoration: BoxDecoration(
-              //                           border: Border.all(color: orange),
-              //                           borderRadius: BorderRadius.circular(tiny)),
-              //                       child: Icon(
-              //                         Icons.add_rounded,
-              //                         color: orange,
-              //                       ))
-              //                 ],
-              //               ),
-              //             )
-              //           ],
-              //         ));
-              //   }).toList(),
               space32,
               Text(
                 chats,
@@ -271,21 +223,22 @@ class _ChatViewState extends State<ChatView> {
                     fontWeight: FontWeight.bold, letterSpacing: -0.02),
               ),
               space9,
-              ...groups.map((e) {
-                int index = groups.indexOf(e);
-                return StreamBuilder(
-                    stream: streamSocket.getResponse,
-                    builder: (BuildContext context, AsyncSnapshot snapshop) {
-                      // return Text(snapshop.data.toString());
-                      return ChatCard(
-                        data: e,
-                        index: index,
-                        onPressed: (v) {
-                          print(v);
-                        },
-                      );
-                    });
-              }),
+              Obx(() => ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: controller.chats.length,
+                    itemBuilder: (context, index) => StreamBuilder(
+                        stream: streamSocket.getResponse,
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshop) {
+                          return ChatCard(
+                            data: controller.chats[index],
+                            index: index,
+                            onPressed: (v) {
+                              controller.connect(controller.chats[index].sId!);
+                            },
+                          );
+                        }),
+                  )),
               space20
             ],
           ),

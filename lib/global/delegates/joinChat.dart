@@ -1,12 +1,21 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:front/controller/controllers.dart';
 import 'package:front/data/data.dart';
 import 'package:front/global/global.dart';
+import 'package:front/provider/api.dart';
 import 'package:front/routes.dart';
 import 'package:get/get.dart';
 
-class JoinChatSearchDelegate extends SearchDelegate {
-  List<Chat> searchList = groups;
+class JoinChatSearchDelegate extends SearchDelegate<FutureOr<Widget?>> {
+  Api api = Api();
+  Future search(String query) async {
+    final res = await api.search(ChatTypes.ALL, query == ""  ? " " : query);
+    List<Chat> l = [];
+    res.fold((l) => null, (r) => l = r);
+    return l;
+  }
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -30,25 +39,24 @@ class JoinChatSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return const SizedBox();
+    return FutureBuilder(
+        future: search(query),
+        builder: ((context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return result(snapshot.data as List<Chat>);
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        }));
   }
 
-  @override
-  Widget buildSuggestions(BuildContext context) {
+  Widget result(List<Chat> data) {
     final controller = Get.put(ChatController());
 
-    List<Chat> matchQuery = [];
-    for (var e in searchList) {
-      if (e.name!.toLowerCase().contains(query.toLowerCase()) ||
-          e.groupNumber.toString().contains(query) ||
-          e.number.toString().contains(query)) {
-        matchQuery.add(e);
-      }
-    }
     return ListView.builder(
-        itemCount: matchQuery.length,
+        itemCount: data.length,
         itemBuilder: (context, index) {
-          Chat result = matchQuery[index];
+          Chat result = data[index];
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -72,5 +80,18 @@ class JoinChatSearchDelegate extends SearchDelegate {
             ),
           );
         });
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return FutureBuilder(
+        future: search(query),
+        builder: ((context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return result(snapshot.data as List<Chat>);
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        }));
   }
 }

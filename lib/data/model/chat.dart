@@ -6,10 +6,10 @@ class Chat {
   String? name;
   String? nickname;
   int? number;
-  Message? pin;
-  User? teacher;
-  User? created;
-  List<User>? users;
+  String? pin;
+  String? teacher;
+  String? created;
+  List<String>? users;
   int? groupNumber;
   String? img;
 
@@ -34,15 +34,13 @@ class Chat {
     number = json['number'];
     groupNumber = json['groupNumber'];
     img = json['img'];
-    pin = json['pin'] != null ? new Message.fromJson(json['pin']) : null;
-    teacher =
-        json['teacher'] != null ? new User.fromJson(json['teacher']) : null;
-    created =
-        json['created'] != null ? new User.fromJson(json['created']) : null;
+    pin = json['pin'];
+    teacher = json['teacher'];
+    created = json['created'];
     if (json['users'] != null) {
-      users = <User>[];
+      users = <String>[];
       json['users'].forEach((v) {
-        users!.add(new User.fromJson(v));
+        users!.add(v.toString());
       });
     }
   }
@@ -57,16 +55,16 @@ class Chat {
     data['img'] = this.img;
     data['groupNumber'] = this.groupNumber;
     if (this.pin != null) {
-      data['pin'] = this.pin!.toJson();
+      data['pin'] = this.pin;
     }
     if (this.teacher != null) {
-      data['teacher'] = this.teacher!.toJson();
+      data['teacher'] = this.teacher;
     }
     if (this.created != null) {
-      data['created'] = this.created!.toJson();
+      data['created'] = this.created;
     }
     if (this.users != null) {
-      data['users'] = this.users!.map((v) => v.toJson()).toList();
+      data['users'] = this.users!.map((v) => v.toString()).toList();
     }
     return data;
   }

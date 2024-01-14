@@ -54,8 +54,8 @@ class Message {
     if (this.usersReaction != null) {
       data['usersReaction'] =
           this.usersReaction!.map((v) => v.toJson()).toList();
-    }
-    return data;
+    } 
+    return data;  
   }
 }
 

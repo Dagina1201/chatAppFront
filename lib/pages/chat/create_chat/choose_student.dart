@@ -17,7 +17,6 @@ class ChooseStudentView extends StatefulWidget {
 }
 
 class _ChooseStudentViewState extends State<ChooseStudentView> {
-  List<User> data = users;
   final controller = Get.put(ChatController());
   void select(String id) {
     if (!controller.selectedStudents.contains(id)) {
@@ -91,32 +90,35 @@ class _ChooseStudentViewState extends State<ChooseStudentView> {
             Stack(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height -
-                      MediaQuery.of(context).padding.top -
-                      MediaQuery.of(context).padding.bottom -
-                      300,
-                  child: GridView.builder(
-                      shrinkWrap: true,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3, childAspectRatio: 0.75),
-                      itemCount: data.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                            onTap: () {
-                              select(data[index].sId!);
-                            },
-                            child: Obx(
-                              () => ChooseStudentCard(
-                                data: data[index],
-                                index: index,
-                                active: controller.selectedStudents
-                                    .where((p0) => p0 == data[index].sId)
-                                    .isNotEmpty,
-                              ),
-                            ));
-                      }),
-                ),
+                    height: MediaQuery.of(context).size.height -
+                        MediaQuery.of(context).padding.top -
+                        MediaQuery.of(context).padding.bottom -
+                        300,
+                    child: Obx(
+                      () => GridView.builder(
+                          shrinkWrap: true,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3, childAspectRatio: 0.75),
+                          itemCount: controller.searchedUsers.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                                onTap: () {
+                                  select(controller.searchedUsers[index].sId!);
+                                },
+                                child: Obx(
+                                  () => ChooseStudentCard(
+                                    data: controller.searchedUsers[index],
+                                    index: index,
+                                    active: controller.selectedStudents
+                                        .where((p0) =>
+                                            p0 ==
+                                            controller.searchedUsers[index].sId)
+                                        .isNotEmpty,
+                                  ),
+                                ));
+                          }),
+                    )),
                 Obx(() => controller.selectedStudents.isNotEmpty
                     ? Positioned(
                         bottom: 0,
@@ -126,13 +128,17 @@ class _ChooseStudentViewState extends State<ChooseStudentView> {
                           color: green,
                           textColor: white,
                           shadowColor: greenShadow,
-                          onPressed: () {
-                            util.mainAlertDialog(
-                                'Пүүх!',
-                                'Та ${controller.choseGroup} хичээлийн багийн чат амжилттай үүслээ. ',
-                                context,
-                                AlertType.success,
-                                2);
+                          onPressed: () async {
+                            bool res = await controller.create(ChatTypes.TEAM);
+
+                            // if (res) {
+                            //   util.mainAlertDialog(
+                            //       'Пүүх!',
+                            //       'Та ${controller.choseGroup} хичээлийн багийн чат амжилттай үүслээ. ',
+                            //       context,
+                            //       AlertType.success,
+                            //       2);
+                            // }
                           },
                           label: addMember,
                         ))

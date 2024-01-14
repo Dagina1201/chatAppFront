@@ -13,7 +13,6 @@ class ChooseGroupWidget extends StatefulWidget {
 }
 
 class _ChooseGroupWidgetState extends State<ChooseGroupWidget> {
-  List<Chat> data = groups;
   final GlobalKey<ScaffoldState> chooseGroupKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -83,25 +82,27 @@ class _ChooseGroupWidgetState extends State<ChooseGroupWidget> {
                     medium -
                     medium,
                 width: double.infinity,
-                child: GridView.builder(
+                child: Obx(() => GridView.builder(
                     shrinkWrap: true,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3, childAspectRatio: 0.75),
-                    itemCount: data.length,
+                    itemCount: controller.searchedChat.length,
                     itemBuilder: (BuildContext context, int index) {
+                      String name =
+                          '${controller.searchedChat[index].name}${controller.searchedChat[index].number}${controller.searchedChat[index].groupNumber != null ? '_' : ""}${controller.searchedChat[index].groupNumber ?? ''}';
                       return GestureDetector(
                           onTap: () {
-                            controller.choseGroup.value =
-                                '${data[index].name}${data[index].number}${data[index].groupNumber != null ? '_' : ""}${data[index].groupNumber ?? ''}';
+                            controller.choseGroup.value = name;
+                            controller.choseGroupId.value =
+                                controller.searchedChat[index].sId!;
                             Get.toNamed(Routes.chooseStudent);
                           },
                           child: ChooseGroupCard(
-                              name:
-                                  '${data[index].name}${data[index].number}${data[index].groupNumber != null ? '_' : ""}${data[index].groupNumber ?? ''}',
-                              uri: data[index].img ??
+                              name: name,
+                              uri: controller.searchedChat[index].img ??
                                   "https://www.ufe.edu.mn/image/%D0%BB%D0%BE%D0%B3%D0%BE%20%D0%B1%D0%BE%D1%81%D0%BE%D0%BE.png"));
-                    })),
+                    }))),
           ],
         ),
       ),

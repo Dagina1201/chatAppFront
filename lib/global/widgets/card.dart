@@ -81,7 +81,7 @@ class ChatCard extends StatelessWidget {
                         Icons.person_2_outlined,
                         color: textColor,
                       ),
-                      Text('$students: 100',
+                      Text('$students: ${data.users?.length ?? 0}',
                           style: Theme.of(context)
                               .textTheme
                               .labelLarge!
@@ -161,7 +161,7 @@ class ChooseStudentCard extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                     color: waterBlue, borderRadius: BorderRadius.circular(100)),
-                child: data.profileImg != null
+                child: data.profileImg != null && data.profileImg != ""
                     ? CachedNetworkImage(imageUrl: data.profileImg!)
                     : Image.asset(
                         imgTestUser,
@@ -186,7 +186,7 @@ class ChooseStudentCard extends StatelessWidget {
           ],
         ),
         Text(
-          data.nickname ?? "",
+          data.username ?? "",
           style: Theme.of(context)
               .textTheme
               .labelLarge!

@@ -32,3 +32,8 @@ const chooseGroup = "Choose group";
 const chooseStudent = "Choose student";
 const addMember = "Гишүүдийг нэмэх";
 const search = "Хайх";
+
+
+class ErrorMessage {
+  static const occured = "Алдаа гарлаа";
+}
