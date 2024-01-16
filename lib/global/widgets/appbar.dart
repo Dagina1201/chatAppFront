@@ -83,6 +83,13 @@ class MainDrawer extends StatelessWidget {
               Get.toNamed(Routes.chat);
             },
           ),
+          ListTile(
+            title: const Text('Log out'),
+            onTap: () {
+              onTap();
+              controller.logout();
+            },
+          ),
         ],
       ),
     );

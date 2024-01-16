@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:front/controller/main_controller.dart';
 import 'package:front/global/global.dart';
@@ -42,15 +43,24 @@ class _MainViewState extends State<MainView> {
                     mainKey.currentState?.openDrawer();
                   },
                   icon: Icon(Icons.menu)),
-              Image.asset(imageLogo),
+              Image.asset(
+                imageLogo,
+                height: 36,
+              ),
               ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.asset(
-                  imageLogo,
-                  width: 53,
-                  height: 53,
-                ),
-              )
+                  borderRadius: BorderRadius.circular(100),
+                  child: Obx(
+                    () => controller.user.value != null &&
+                            controller.user.value!.profileImg != null
+                        ? CachedNetworkImage(
+                            imageUrl: controller.user.value!.profileImg!,
+                          )
+                        : Image.asset(
+                            imageLogo,
+                            width: 53,
+                            height: 53,
+                          ),
+                  ))
             ],
           ),
         ),

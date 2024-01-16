@@ -131,14 +131,15 @@ class _ChooseStudentViewState extends State<ChooseStudentView> {
                           onPressed: () async {
                             bool res = await controller.create(ChatTypes.TEAM);
 
-                            // if (res) {
-                            //   util.mainAlertDialog(
-                            //       'Пүүх!',
-                            //       'Та ${controller.choseGroup} хичээлийн багийн чат амжилттай үүслээ. ',
-                            //       context,
-                            //       AlertType.success,
-                            //       2);
-                            // }
+                            if (res) {
+                              util.mainAlertDialog(
+                                  'Пүүх!',
+                                  'Та ${controller.choseGroup} хичээлийн багийн чат амжилттай үүслээ. ',
+                                  context,
+                                  AlertType.success,
+                                  2);
+                    
+                            }
                           },
                           label: addMember,
                         ))

@@ -24,6 +24,7 @@ class Util {
   mainSnackbar(
     String text,
     SnackbarType type,
+
   ) {
     Color color = success;
     IconData icon = Icons.check;

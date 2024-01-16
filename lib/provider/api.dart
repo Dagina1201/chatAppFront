@@ -14,6 +14,7 @@ import 'dart:developer' as dev;
 
 typedef EitherUser<T> = Future<Either<String, User>>;
 typedef EitherChats<T> = Future<Either<String, List<Chat>>>;
+typedef EitherChatUsers<T> = Future<Either<String, Tuple2<Chat, List<User>>>>;
 typedef EitherUsers<T> = Future<Either<String, List<User>>>;
 typedef EitherResponse<T> = Future<Either<String, ResponseModel>>;
 typedef EitherText<T> = Future<Either<String, String>>;
@@ -51,9 +52,7 @@ class Api extends GetxService {
         InterceptorsWrapper(
           onRequest: (options, handler) async {
             // get token from storage
-            // final token = storage.read(StorageKeys.token.name);
-            final token =
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRvcmpvb2hvdmVyQHVmZS5lZHUubW4iLCJpYXQiOjE3MDUxNTc0ODAsImV4cCI6MTcwNTc2MjI4MH0.E4BzwGSCFdvd-obD9NLcAhr6fn1qo9pXgoOhgYriMJs";
+            final token = storage.read(StorageKeys.token.name);
             if (token != null) {
               options.headers['Authorization'] = 'Bearer $token';
             } else {}
@@ -105,7 +104,7 @@ class Api extends GetxService {
       };
 
       final res = await dio.post('auth/login', data: data);
-
+      
       if (res.statusCode == 201) {
         return right(ResponseModel(
             data: res.data['access_token'], message: res.data['message']));
@@ -170,6 +169,22 @@ class Api extends GetxService {
     }
   }
 
+  EitherUsers<List<User>> getChatUsers(String chat) async {
+    try {
+      final res = await dio.get('/chat/users/$chat');
+
+      if (res.statusCode == 200) {
+        return right((res.data as List).map((e) => User.fromJson(e)).toList());
+      }
+
+      return left(ErrorMessage.occured);
+    } catch (e) {
+      dev.log(e.toString());
+
+      return left(ErrorMessage.occured);
+    }
+  }
+
   EitherSuccess<bool> createChat(
       ChatTypes type, String chat, List<String> users) async {
     try {
@@ -179,7 +194,7 @@ class Api extends GetxService {
         "users": users,
       };
       final res = await dio.post('/chat', data: body);
-      
+
       if (res.statusCode == 201) {
         return right(true);
       }

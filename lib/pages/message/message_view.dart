@@ -18,18 +18,16 @@ class MessageView extends StatefulWidget {
 
 class _MessageViewState extends State<MessageView> {
   final GlobalKey<ScaffoldState> messageKey = GlobalKey<ScaffoldState>();
-  List<Message> data = [];
+
   Chat chat = Chat();
   final ctrl = Get.put(ChatController());
   ScrollController controller = ScrollController();
   @override
   void initState() {
-    // TODO: implement initState
+
     // controller.jumpTo(controller.position.maxScrollExtent);
     setState(() {
       chat = ctrl.chats.firstWhere((element) => element.sId == widget.id);
-      data = messages.where((element) => element.chat == '1').toList();
-      // data = messages.where((element) => element.chat == widget.id).toList();
     });
     super.initState();
   }
@@ -100,7 +98,7 @@ class _MessageViewState extends State<MessageView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  AvatarListWidget(data: users),
+                  AvatarListWidget(),
                   MainButton(
                     shadow: false,
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),

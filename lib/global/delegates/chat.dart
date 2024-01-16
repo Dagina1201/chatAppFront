@@ -73,7 +73,7 @@ class ChatSearchDelegate extends SearchDelegate<FutureOr<Widget?>> {
                   onPressed: () {
                     controller.choseGroup.value = name;
                     controller.choseGroupId.value = result.sId!;
-                    print(result.sId);
+                
                     
                     controller.createStep.value = 1;
                     Navigator.pop(context);

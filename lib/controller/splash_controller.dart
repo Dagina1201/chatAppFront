@@ -52,12 +52,16 @@ class SplashController extends GetxController {
           // await storage.write(StorageKeys.currentPage.name, 0);
           Get.toNamed(Routes.main);
         } else {
-          Get.toNamed(Routes.main);
-          // Get.toNamed(Routes.auth);
+          // Get.toNamed(Routes.main);
+          Get.toNamed(Routes.auth);
         }
       },
     );
-    token.value = storage.read(StorageKeys.token.name);
+    try {
+      token.value = storage.read(StorageKeys.token.name);
+    } catch(e) {
+      print(e);
+    }
   }
 
   @override

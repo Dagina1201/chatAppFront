@@ -5,16 +5,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:front/controller/auth_controller.dart';
+import 'package:front/data/data.dart';
 // import 'package:front/data/data.dart';
 
 import 'package:front/global/global.dart';
 import 'package:front/global/util.dart';
 import 'package:front/provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
-import '../../firebase_options.dart';
+
 import 'package:front/routes.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
 // const List<String> scopes = <String>[
 //   'email',
@@ -41,7 +40,7 @@ class _AuthViewState extends State<AuthView> {
   final Api api = Api();
   final Util util = Util();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  User? _user;
+
   bool loading = false;
   bool _isAuthorized = false; // has granted permissions?
   String _contactText = '';
@@ -49,26 +48,18 @@ class _AuthViewState extends State<AuthView> {
   @override
   void initState() {
     super.initState();
-    _auth.authStateChanges().listen((event) {
-      print(event);
-      setState(() {
-        _user = event;
-      });
-    });
   }
 
-  void _handleGoogleSignIn() {
+  void _handleGoogleSignIn() async {
     try {
       if (!loading) {
         GoogleAuthProvider _googleAuthProvider = GoogleAuthProvider();
-        _auth.signInWithProvider(_googleAuthProvider).then((value) => {
-              print('res $value'),
-              // Get.toNamed(Routes.auth)
-              setState(() {
-                _user = value.user;
-                loading = false;
-              })
-            });
+        await _auth
+            .signInWithProvider(_googleAuthProvider)
+            .then((UserCredential value) => {
+                  controller.login(value.user!.email!, value.user!.photoURL!,
+                      value.user!.displayName ?? value.user!.email!)
+                });
       }
     } catch (error) {
       setState(() {
@@ -91,66 +82,74 @@ class _AuthViewState extends State<AuthView> {
               right: regular,
             ),
             child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).padding.top,
-                  ),
-                  Image.asset(loginProLogo),
-                  if (_user != null)
-                    ElevatedButton(onPressed: () {
-                      Get.toNamed(Routes.home);
-                    }, child: Text(_user?.email ?? '')),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Container(
-                        alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        child: Text(
-                          lorem,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelLarge!
-                              .copyWith(color: subTextColor),
+              child: Container(
+                padding:
+                    EdgeInsets.only(top: MediaQuery.of(context).padding.top + regular),
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height -
+                      MediaQuery.of(context).padding.top -
+                      MediaQuery.of(context).padding.bottom,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Image.asset(loginProLogo),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Container(
+                          alignment: Alignment.center,
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: Text(
+                            lorem,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge!
+                                .copyWith(color: subTextColor),
+                          ),
                         ),
-                      ),
-                      space58,
-                      MainButton(
-                        borderRadius: borderRadius50,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                              imageLogo,
-                              height: 48,
-                            ),
-                            space13,
-                            Text(
-                              signGoogle,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(color: white),
-                            )
-                          ],
+                        space45,
+                        MainButton(
+                          borderRadius: borderRadius50,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Container(
+                                  color: white,
+                                  child: Image.asset(
+                                    loginLogo,
+                                    height: 48,
+                                  ),
+                                ),
+                              ),
+                              space13,
+                              Text(
+                                signGoogle,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(color: white),
+                              )
+                            ],
+                          ),
+                          onPressed: () {
+                            _handleGoogleSignIn();
+                          },
                         ),
-                        onPressed: () {
-                          _handleGoogleSignIn();
-                        },
-                      ),
-                      space58,
-                      Image.asset(
-                        imageLogo,
-                        height: 24,
-                      ),
-                      space16,
-                    ],
-                  )
-                ],
+                        space45,
+                        Image.asset(
+                          imageLogo,
+                          height: 36,
+                        ),
+                        space16,
+                      ],
+                    )
+                  ],
+                ),
               ),
             )),
       ),

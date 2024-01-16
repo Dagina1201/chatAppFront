@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/controller/chat_contoller.dart';
+import 'package:front/controller/controllers.dart';
 import 'package:front/data/data.dart';
 import 'package:front/global/constant/constant.dart';
 import 'package:front/global/global.dart';
@@ -18,6 +19,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   ChatTypes filteredChatType = chatFilters[0];
   final chatController = Get.put(ChatController());
+  final mainController = Get.put(MainController());
   @override
   void initState() {
     chatController.getChats(ChatTypes.ALL);
@@ -30,8 +32,12 @@ class _HomeViewState extends State<HomeView> {
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        space50,
-        space4,
+        space45,
+        Obx(
+          () => Text(
+              'Hello ${mainController.user.value?.username != null ? mainController.user.value!.username! : mainController.user.value?.email ?? ''}', style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.bold),),
+        ),
+        space9,
         HomeStatusView(
           list: diagramValues,
         ),
@@ -72,6 +78,7 @@ class _HomeViewState extends State<HomeView> {
         space20,
         Obx(() => ListView.builder(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: chatController.chats.length,
               itemBuilder: (context, index) => StreamBuilder(
                   stream: streamSocket.getResponse,
@@ -80,6 +87,8 @@ class _HomeViewState extends State<HomeView> {
                       data: chatController.chats[index],
                       index: index,
                       onPressed: (v) {
+                        chatController
+                            .getChat(chatController.chats[index].sId!);
                         chatController
                             .connect(chatController.chats[index].sId!);
                       },

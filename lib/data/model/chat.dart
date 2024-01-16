@@ -9,7 +9,7 @@ class Chat {
   String? pin;
   String? teacher;
   String? created;
-  List<String>? users;
+  List<String >? users;
   int? groupNumber;
   String? img;
 

@@ -1,3 +1,4 @@
+import 'package:front/data/data.dart';
 import 'package:front/global/global.dart';
 import 'package:front/provider/provider.dart';
 import 'package:front/routes.dart';
@@ -11,10 +12,10 @@ class AuthController extends GetxController {
   final storage = GetStorage();
   final loading = false.obs;
 
-  login(String value) async {
+  login(String email, String profileImg, String username) async {
     loading.value = true;
-
-    await storage.write(StorageKeys.token.name, value);
+    final res = await api.login(User(email: email, profileImg: profileImg, username: username));
+    res.fold((l) => null, (r) => {storage.write(StorageKeys.token.name, r.data)});
     Get.toNamed(Routes.main);
     loading.value = false;
   }

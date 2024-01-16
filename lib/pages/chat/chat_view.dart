@@ -225,6 +225,7 @@ class _ChatViewState extends State<ChatView> {
               space9,
               Obx(() => ListView.builder(
                     shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: controller.chats.length,
                     itemBuilder: (context, index) => StreamBuilder(
                         stream: streamSocket.getResponse,

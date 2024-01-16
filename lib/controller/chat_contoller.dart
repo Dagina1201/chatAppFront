@@ -19,6 +19,8 @@ class ChatController extends GetxController {
   final chats = <Chat>[].obs;
   final api = Api();
   final contentController = TextEditingController();
+  final joinedChat = Rxn(Chat());
+  final currentChatUsers = <User>[].obs;
 
   @override
   void onInit() async {
@@ -75,6 +77,18 @@ class ChatController extends GetxController {
     } catch (e) {
       dev.log(e.toString());
       return false;
+    }
+  }
+
+  void getChat(
+    String chat,
+  ) async {
+    try {
+      final res = await api.getChatUsers(chat);
+
+      res.fold((l) => print(l), (r) => currentChatUsers.value = r);
+    } catch (e) {
+      dev.log(e.toString());
     }
   }
 

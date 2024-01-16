@@ -61,7 +61,7 @@ class ChatCard extends StatelessWidget {
                     .titleMedium!
                     .copyWith(color: textColor, letterSpacing: -0.02),
               ),
-              space9,
+              // space2,
               Padding(
                 padding: EdgeInsets.only(left: tall),
                 child: Text(
@@ -72,7 +72,7 @@ class ChatCard extends StatelessWidget {
                       .copyWith(color: textColor),
                 ),
               ),
-              space9,
+              // space2,
               Padding(
                   padding: const EdgeInsets.only(left: tall),
                   child: Row(
