@@ -14,7 +14,8 @@ import 'dart:developer' as dev;
 
 typedef EitherUser<T> = Future<Either<String, User>>;
 typedef EitherChats<T> = Future<Either<String, List<Chat>>>;
-typedef EitherChatUsers<T> = Future<Either<String, Tuple2<Chat, List<User>>>>;
+typedef EitherChat<T> = Future<Either<String, Chat>>;
+// typedef EitherChatUsers<T> = Future<Either<String, Tuple2<Chat, List<User>>>>;
 typedef EitherUsers<T> = Future<Either<String, List<User>>>;
 typedef EitherResponse<T> = Future<Either<String, ResponseModel>>;
 typedef EitherText<T> = Future<Either<String, String>>;
@@ -159,6 +160,21 @@ class Api extends GetxService {
 
       if (res.statusCode == 200) {
         return right((res.data as List).map((e) => Chat.fromJson(e)).toList());
+      }
+
+      return left(ErrorMessage.occured);
+    } catch (e) {
+      dev.log(e.toString());
+
+      return left(ErrorMessage.occured);
+    }
+  }
+  EitherChat<Chat> getChatById(String id) async {
+    try {
+      final res = await dio.get('/chat/get/$id');
+
+      if (res.statusCode == 200) {
+        return right(Chat.fromJson(res.data));
       }
 
       return left(ErrorMessage.occured);

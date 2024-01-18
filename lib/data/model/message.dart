@@ -6,6 +6,7 @@ class Message {
   MessageTypes? messageType;
   String? content;
   String? chat;
+  String? parent;
   User? sender;
   List<Reactions>? reactions;
   List<UsersReaction>? usersReaction;
@@ -14,6 +15,7 @@ class Message {
       {this.messageType,
       this.sId,
       this.content,
+      this.parent,
       this.chat,
       this.sender,
       this.reactions,
@@ -24,6 +26,7 @@ class Message {
     sId = json['_id'];
     content = json['content'];
     chat = json['chat'];
+    parent = json['parent'];
     sender = json['sender'] != null ? new User.fromJson(json['sender']) : null;
     if (json['reactions'] != null) {
       reactions = <Reactions>[];
@@ -45,6 +48,7 @@ class Message {
     data['content'] = this.content;
     data['_id'] = sId;
     data['chat'] = this.chat;
+    data['parent'] = this.parent;
     if (this.sender != null) {
       data['sender'] = this.sender!.toJson();
     }

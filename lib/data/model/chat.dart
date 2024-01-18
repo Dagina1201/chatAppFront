@@ -5,7 +5,7 @@ class Chat {
   String? types;
   String? name;
   String? nickname;
-  int? number;
+  String? number;
   String? pin;
   String? teacher;
   String? created;

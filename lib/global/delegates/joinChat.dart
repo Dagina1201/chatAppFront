@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 class JoinChatSearchDelegate extends SearchDelegate<FutureOr<Widget?>> {
   Api api = Api();
   Future search(String query) async {
-    final res = await api.search(ChatTypes.ALL, query == ""  ? " " : query);
+    final res = await api.search(ChatTypes.GROUP, query == "" ? " " : query);
     List<Chat> l = [];
     res.fold((l) => null, (r) => l = r);
     return l;
@@ -62,14 +62,12 @@ class JoinChatSearchDelegate extends SearchDelegate<FutureOr<Widget?>> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                    '${result.name}${result.number}${result.groupNumber != null ? '_' : ""}${result.groupNumber ?? ''}'),
+                Text(result.nickname ?? ''),
                 MainButton(
                   textColor: white,
                   onPressed: () {
-                    controller.choseGroup.value =
-                        '${result.name}${result.number}${result.groupNumber != null ? '_' : ""}${result.groupNumber ?? ''}';
-                    controller.createStep.value = 1;
+                    controller.choseGroup.value = result.nickname ?? '';
+                    // controller.createStep.value = 1;
                     Navigator.pop(context);
                     Get.toNamed(Routes.message, arguments: [result.sId!]);
                   },

@@ -55,7 +55,7 @@ class StudentSearchDelegate extends SearchDelegate<FutureOr<Widget?>> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text(result.email ?? ""),
+                Text(removeUrl(result.email ?? "")),
                 Obx(() => MainButton(
                       textColor: white,
                       onPressed: () {

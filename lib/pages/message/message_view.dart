@@ -1,8 +1,4 @@
-import 'dart:convert';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:front/controller/controllers.dart';
 import 'package:front/data/data.dart';
 import 'package:front/global/global.dart';
@@ -21,18 +17,30 @@ class _MessageViewState extends State<MessageView> {
 
   Chat chat = Chat();
   final ctrl = Get.put(ChatController());
+  final mainController = Get.put(MainController());
+  double dismissible = 0;
+  int? dismissibleIndex;
+  String? parentMessage;
   ScrollController controller = ScrollController();
   @override
   void initState() {
-
-    // controller.jumpTo(controller.position.maxScrollExtent);
-    setState(() {
-      chat = ctrl.chats.firstWhere((element) => element.sId == widget.id);
-    });
+    init();
     super.initState();
   }
 
+  void init() async {
+    Chat res = await ctrl.getChatById(widget.id);
+    setState(() {
+      chat = res;
+    });
+    // controller.jumpTo(controller.position.maxScrollExtent);
+  }
+
   int messageCount = 0;
+  FocusNode inputNode = FocusNode();
+  void openKeyboard() {
+    FocusScope.of(context).requestFocus(inputNode);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +57,7 @@ class _MessageViewState extends State<MessageView> {
             Size.fromHeight(150 + MediaQuery.of(context).padding.top),
         child: Container(
           width: double.infinity,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               color: blue,
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(borderRadius15),
@@ -70,7 +78,7 @@ class _MessageViewState extends State<MessageView> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back,
                         color: white,
                       )),
@@ -78,7 +86,7 @@ class _MessageViewState extends State<MessageView> {
                     padding: EdgeInsets.all(8),
                     shadow: false,
                     onPressed: () {},
-                    child: Icon(
+                    child: const Icon(
                       Icons.message_rounded,
                       size: 20,
                       color: white,
@@ -88,20 +96,21 @@ class _MessageViewState extends State<MessageView> {
               ),
               space9,
               Text(
-                '${chat.name}${chat.number}${chat.groupNumber != null ? '_' : ""}${chat.groupNumber ?? ''}',
+                chat.nickname ?? '',
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium!
                     .copyWith(color: white, letterSpacing: -0.02),
               ),
-              space9,
+              space4,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  AvatarListWidget(),
+                  const AvatarListWidget(),
                   MainButton(
                     shadow: false,
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
                     onPressed: () {
                       controller.jumpTo(controller.position.maxScrollExtent);
                     },
@@ -112,7 +121,7 @@ class _MessageViewState extends State<MessageView> {
                           decoration: BoxDecoration(
                               border: Border.all(color: white),
                               borderRadius: BorderRadius.circular(4)),
-                          child: Icon(
+                          child: const Icon(
                             Icons.add_rounded,
                             color: white,
                             size: 16,
@@ -140,11 +149,11 @@ class _MessageViewState extends State<MessageView> {
             huge -
             MediaQuery.of(context).padding.top -
             MediaQuery.of(context).padding.bottom,
-        padding: EdgeInsets.only(right: medium, left: medium),
+        padding: const EdgeInsets.only(right: medium, left: medium),
         child: Stack(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(top: 4, bottom: 40),
+              padding: const EdgeInsets.only(bottom: 40),
               child: StreamBuilder(
                   stream: streamSocket.getMessage,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -167,90 +176,227 @@ class _MessageViewState extends State<MessageView> {
                             itemCount: allMessage.length,
                             itemBuilder: (context, index) {
                               bool user = allMessage![index].sender?.sId ==
-                                  "652227c1517423fded167b17";
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: index == allMessage.length - 1
-                                        ? 30
-                                        : 10),
-                                child: (Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    if (user)
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 13),
-                                        padding: const EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                            color: blue,
-                                            borderRadius:
-                                                BorderRadius.circular(100)),
-                                        alignment: Alignment.center,
-                                        child: Image.asset(
-                                          imgTestUser,
-                                          width: 45,
-                                        ),
-                                      ),
-                                    Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: user
-                                          ? CrossAxisAlignment.start
-                                          : CrossAxisAlignment.end,
-                                      children: <Widget>[
-                                        Text(allMessage[index]
-                                                .sender
-                                                ?.username ??
-                                            ''),
-                                        space4,
-                                        Container(
-                                          width: MediaQuery.of(context)
+                                  mainController.user.value!.sId!;
+                              return GestureDetector(
+                                onHorizontalDragEnd: (details) {
+                                  openKeyboard();
+
+                                  setState(() {
+                                    parentMessage = allMessage![index].sId!;
+                                    dismissible = 0;
+                                  });
+                                },
+                                onHorizontalDragUpdate: (details) {
+                                  if (details.primaryDelta != null &&
+                                      details.primaryDelta! > 0 &&
+                                      details.primaryDelta! *
+                                              MediaQuery.of(context)
                                                   .size
-                                                  .width -
-                                              120,
-                                          decoration: BoxDecoration(
-                                              color: searchColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      borderRadius15)),
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 16, horizontal: 21),
-                                          child: Text(
-                                            allMessage[index].content!,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall!
-                                                .copyWith(letterSpacing: -0.02),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    if (!user)
-                                      Container(
-                                        margin: EdgeInsets.only(left: 13),
-                                        padding: EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                            color: blue,
-                                            borderRadius:
-                                                BorderRadius.circular(100)),
-                                        alignment: Alignment.center,
-                                        child: Image.asset(
-                                          imgTestUser,
-                                          width: 45,
+                                                  .width *
+                                              0.75 <
+                                          MediaQuery.of(context).size.width *
+                                              0.2) {
+                                    setState(() {
+                                      dismissibleIndex = index;
+                                      dismissible = details.primaryDelta! *
+                                          MediaQuery.of(context).size.width *
+                                          0.75;
+                                    });
+                                  }
+                                },
+                                child: AnimatedContainer(
+                                    duration: const Duration(milliseconds: 100),
+                                    padding: EdgeInsets.only(
+                                        left: index == dismissibleIndex
+                                            ? dismissible
+                                            : 0,
+                                        bottom: index == allMessage.length - 1
+                                            ? 30
+                                            : 10,
+                                        top: index == 0 ? tall : 0),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        if (user)
+                                          Container(
+                                              margin: const EdgeInsets.only(
+                                                  right: 13),
+                                              padding: const EdgeInsets.all(5),
+                                              decoration: BoxDecoration(
+                                                  color: blue,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100)),
+                                              alignment: Alignment.center,
+                                              child: RoundedImage(
+                                                  url: mainController
+                                                      .user.value!.profileImg,
+                                                  asset: imgTestUser,
+                                                  height: 30,
+                                                  width: 30)),
+                                        Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment: user
+                                              ? CrossAxisAlignment.start
+                                              : CrossAxisAlignment.end,
+                                          children: <Widget>[
+                                            Text(
+                                              removeUrl(allMessage[index]
+                                                      .sender
+                                                      ?.username ??
+                                                  ''),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelMedium,
+                                            ),
+                                            space4,
+                                            Stack(
+                                              children: [
+                                                if (allMessage[index].parent != null)
+                                                   Container(
+                                                        decoration: BoxDecoration(
+                                                            color:
+                                                                searchShadowColor,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        borderRadius15)),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                left: 21,
+                                                                right: 21,
+                                                                top: 16,
+                                                                bottom: 26),
+                                                        margin: const EdgeInsets.only(bottom: 40),
+                                                        child: SizedBox(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.5,
+                                                          child: Text(
+                                                            allMessage
+                                                                .firstWhere((element) =>
+                                                                    element
+                                                                        .sId ==
+                                                                    allMessage![
+                                                                            index]
+                                                                        .parent!)
+                                                                .content!,
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .labelLarge!
+                                                                .copyWith(
+                                                                    letterSpacing:
+                                                                        -0.02),
+                                                          ),
+                                                        )),
+                                                   Visibility(
+                                                    visible: allMessage[index].parent == null,
+                                                     child: Container(
+                                                      
+                                                          decoration: BoxDecoration(
+                                                              color: searchColor,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          borderRadius15)),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  vertical: 16,
+                                                                  horizontal: 21),
+                                                          child: SizedBox(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.4,
+                                                            child: Text(
+                                                              allMessage[index]
+                                                                  .content!,
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodySmall!
+                                                                  .copyWith(
+                                                                      letterSpacing:
+                                                                          -0.02),
+                                                            ),
+                                                          )),
+                                                   ),
+                                                Positioned(
+                                                  bottom: 0,
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                          color: searchColor,
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                  borderRadius15)),
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 16,
+                                                          horizontal: 21),
+                                                      child: SizedBox(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.4,
+                                                        child: Text(
+                                                          allMessage[index]
+                                                              .content!,
+                                                          style: Theme.of(
+                                                                  context)
+                                                              .textTheme
+                                                              .bodySmall!
+                                                              .copyWith(
+                                                                  letterSpacing:
+                                                                      -0.02),
+                                                        ),
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                  ],
-                                )),
+                                        if (!user)
+                                          Container(
+                                              margin: const EdgeInsets.only(
+                                                  left: 13),
+                                              padding:
+                                                  const EdgeInsets.all(short),
+                                              decoration: BoxDecoration(
+                                                  color: blue,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100)),
+                                              alignment: Alignment.center,
+                                              child: RoundedImage(
+                                                  url: allMessage[index]
+                                                      .sender
+                                                      ?.profileImg,
+                                                  asset: imgTestUser,
+                                                  height: 45,
+                                                  width: 45)),
+                                      ],
+                                    )),
                               );
                             })
                         : const SizedBox();
                   }),
             ),
             Positioned(
-                bottom: 8,
+                bottom: 0,
                 left: 0,
                 right: 0,
                 child: Container(
+                    color: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: tiny),
                     width: MediaQuery.of(context).size.width,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -262,7 +408,7 @@ class _MessageViewState extends State<MessageView> {
                           color: blue,
                           padding: const EdgeInsets.symmetric(
                               horizontal: tiny, vertical: tiny),
-                          child: Icon(
+                          child: const Icon(
                             Icons.add,
                             color: white,
                           ),
@@ -270,8 +416,13 @@ class _MessageViewState extends State<MessageView> {
                         space13,
                         Flexible(
                           child: TextField(
+                            focusNode: inputNode,
                             controller: ctrl.contentController,
                             decoration: InputDecoration(
+                                labelStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(color: black),
                                 fillColor: searchColor,
                                 filled: true,
                                 contentPadding: const EdgeInsets.symmetric(
@@ -288,13 +439,16 @@ class _MessageViewState extends State<MessageView> {
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
-                                .copyWith(color: inputGray),
+                                .copyWith(color: black),
                           ),
                         ),
                         space13,
                         MainButton(
                           onPressed: () {
-                            ctrl.send("chat");
+                            ctrl.send(chat.sId!, parentMessage);
+                            setState(() {
+                              parentMessage = null;
+                            });
                             if (controller.hasClients) {
                               controller
                                   .jumpTo(controller.position.maxScrollExtent);
@@ -303,7 +457,7 @@ class _MessageViewState extends State<MessageView> {
                           shadow: false,
                           color: Colors.transparent,
                           padding: EdgeInsets.zero,
-                          child: Icon(
+                          child: const Icon(
                             Icons.send,
                             color: blue,
                             size: 36,

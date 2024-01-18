@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
+import 'package:front/controller/controllers.dart';
 import 'package:front/data/data.dart';
 import 'package:front/global/global.dart';
 import 'package:front/provider/api.dart';
@@ -21,11 +22,12 @@ class ChatController extends GetxController {
   final contentController = TextEditingController();
   final joinedChat = Rxn(Chat());
   final currentChatUsers = <User>[].obs;
+  final mainController = Get.put(MainController());
 
   @override
   void onInit() async {
     try {
-      search(ChatTypes.ALL, " ");
+      search(ChatTypes.GROUP, " ");
       searchUsers(UserTypes.USER, " ");
     } on Exception catch (e) {
       dev.log(e.toString());
@@ -40,6 +42,17 @@ class ChatController extends GetxController {
       res.fold((l) => print(l), (r) => searchedChat.value = r);
     } catch (e) {
       dev.log(e.toString());
+    }
+  }
+
+  Future<Chat> getChatById(String id) async {
+    try {
+      Chat chat = Chat();
+      final res = await api.getChatById(id);
+      res.fold((l) => print(l), (r) => chat = r);
+      return chat;
+    } catch (e) {
+      return Chat();
     }
   }
 
@@ -66,9 +79,6 @@ class ChatController extends GetxController {
     ChatTypes type,
   ) async {
     try {
-      print(type.name);
-      print(choseGroupId.value);
-      print(selectedStudents);
       final res =
           await api.createChat(type, choseGroupId.value, selectedStudents);
       bool v = false;
@@ -93,22 +103,24 @@ class ChatController extends GetxController {
   }
 
   void connect(String chat) {
-    api.socket.emit('join', "659ceee0335be42e8e4e25cd");
+    api.socket.emit('join', chat);
     api.socket.emit('message', {
-      "chat": "659ceee0335be42e8e4e25cd",
-      "sender": "652227c1517423fded167b17",
-      // "content": "tes123123 adsf adsf",
+      "chat": chat,
+      "sender": mainController.user.value!.sId!,
       "messageType": "TEXT"
     });
   }
 
   void send(
     String chat,
+    String? parent
   ) {
+    
     api.socket.emit('message', {
-      "chat": "659ceee0335be42e8e4e25cd",
-      "sender": "652227c1517423fded167b17",
+      "chat": chat,
+      "sender": mainController.user.value!.sId!,
       "content": contentController.text,
+      "parent": parent,
       "messageType": "TEXT"
     });
     contentController.text = "";

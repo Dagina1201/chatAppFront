@@ -17,15 +17,17 @@ class MainController extends GetxController
     loading.value = true;
     try {
       loading.value = false;
-      final res = await api.getUser();
-      res.fold((l) => null, (r) => user.value = r);
-
-      // api.connectAndListen();
+      getUser();
     } catch (e) {
       loading.value = false;
 
       update();
     }
+  }
+
+  void getUser() async {
+    final res = await api.getUser();
+    res.fold((l) => null, (r) => user.value = r);
   }
 
   logout() async {

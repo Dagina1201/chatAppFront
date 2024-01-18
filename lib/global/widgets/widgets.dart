@@ -4,3 +4,4 @@ export 'text.dart';
 export 'container.dart';
 export 'card.dart';
 export './avatarList.dart';
+export 'roundedImage.dart';

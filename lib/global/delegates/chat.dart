@@ -61,17 +61,16 @@ class ChatSearchDelegate extends SearchDelegate<FutureOr<Widget?>> {
         itemCount: data.length,
         itemBuilder: (context, index) {
           Chat result = data[index];
-          String name = '${result.name}${result.number}${result.groupNumber != null ? '_' : ""}${result.groupNumber ?? ''}';
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(name),
+                Text(result.nickname ?? ''),
                 MainButton(
                   textColor: white,
                   onPressed: () {
-                    controller.choseGroup.value = name;
+                    controller.choseGroup.value = result.nickname ?? '';
                     controller.choseGroupId.value = result.sId!;
                 
                     

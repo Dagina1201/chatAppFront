@@ -4,7 +4,7 @@ enum AlertStatus { success }
 
 enum SnackbarType { success, warning, error }
 
-enum ChatTypes { TEAM, GROUP, ALL }
+enum ChatTypes { TEAM, GROUP, ALL, LESSON }
 enum UserTypes { USER, ADMIN, TEACHER, SYSTEM }
 
 enum MessageTypes {

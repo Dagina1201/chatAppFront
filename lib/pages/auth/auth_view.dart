@@ -58,7 +58,7 @@ class _AuthViewState extends State<AuthView> {
             .signInWithProvider(_googleAuthProvider)
             .then((UserCredential value) => {
                   controller.login(value.user!.email!, value.user!.photoURL!,
-                      value.user!.displayName ?? value.user!.email!)
+                      value.user!.displayName)
                 });
       }
     } catch (error) {
@@ -83,8 +83,8 @@ class _AuthViewState extends State<AuthView> {
             ),
             child: SingleChildScrollView(
               child: Container(
-                padding:
-                    EdgeInsets.only(top: MediaQuery.of(context).padding.top + regular),
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).padding.top + regular),
                 constraints: BoxConstraints(
                   minHeight: MediaQuery.of(context).size.height -
                       MediaQuery.of(context).padding.top -
@@ -116,15 +116,9 @@ class _AuthViewState extends State<AuthView> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: Container(
-                                  color: white,
-                                  child: Image.asset(
-                                    loginLogo,
-                                    height: 48,
-                                  ),
-                                ),
+                              const RoundedImage(
+                                asset: loginLogo,
+                                height: 48,
                               ),
                               space13,
                               Text(

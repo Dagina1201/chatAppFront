@@ -90,17 +90,20 @@ class ChatCard extends StatelessWidget {
                   )),
             ],
           ),
-          MainButton(
-            padding: const EdgeInsets.symmetric(
-                vertical: regular, horizontal: large),
-            onPressed: () => {
-              Get.toNamed(Routes.message, arguments: [data.sId!]),
-              onPressed(data.sId!)
-            },
-            label: goChat,
-            color: btnColor,
-            shadowColor: btnShadowColor,
-            textColor: btnTextColor,
+          Container(
+            margin: const EdgeInsets.only(top: tiny),
+            child: MainButton(
+              padding:
+                  const EdgeInsets.symmetric(vertical: tall, horizontal: tall),
+              onPressed: () => {
+                Get.toNamed(Routes.message, arguments: [data.sId!]),
+                onPressed(data.sId!)
+              },
+              label: goChat,
+              color: btnColor,
+              shadowColor: btnShadowColor,
+              textColor: btnTextColor,
+            ),
           )
         ],
       ),
@@ -156,18 +159,16 @@ class ChooseStudentCard extends StatelessWidget {
       children: <Widget>[
         Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Container(
+            Container(
+                padding: const EdgeInsets.all(12.0),
                 decoration: BoxDecoration(
                     color: waterBlue, borderRadius: BorderRadius.circular(100)),
-                child: data.profileImg != null && data.profileImg != ""
-                    ? CachedNetworkImage(imageUrl: data.profileImg!)
-                    : Image.asset(
-                        imgTestUser,
-                      ),
-              ),
-            ),
+                child: RoundedImage(
+                  url: data.profileImg,
+                  asset: imgTestUser,
+                  width: 80,
+                  height: 80,
+                )),
             if (active)
               Positioned(
                   right: 0,
@@ -186,7 +187,7 @@ class ChooseStudentCard extends StatelessWidget {
           ],
         ),
         Text(
-          data.username ?? "",
+          removeUrl(data.username ?? ""),
           style: Theme.of(context)
               .textTheme
               .labelLarge!

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:front/controller/controllers.dart';
 
@@ -60,38 +61,121 @@ class MainDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(MainController());
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Text('Drawer Header'),
+        child: Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top + medium,
+            left: tiny,
+            right: tiny,
+            bottom: MediaQuery.of(context).padding.bottom + medium,
           ),
-          ListTile(
-            title: const Text('Home'),
-            onTap: () {
-              Get.toNamed(Routes.main);
-              onTap();
-            },
+          constraints:
+              BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Obx(() => RoundedImage(
+                          asset: imageLogo,
+                          height: 60,
+                          width: 60,
+                          borderRadius: borderRadius15,
+                          url: controller.user.value?.profileImg,
+                        )),
+                    space13,
+                    Text(
+                      hello,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    space4,
+                    Obx(
+                      () => Text(
+                        removeUrl(controller.user.value!.username ?? ''),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ListView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.home),
+                    title: const Text(home),
+                    onTap: () {
+                      Get.toNamed(Routes.main);
+                      onTap();
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.chat),
+                    title: const Text(chats),
+                    onTap: () {
+                      onTap();
+                      Get.toNamed(Routes.chat);
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.info),
+                    title: const Text(info),
+                    onTap: () {
+                      onTap();
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.money),
+                    title: const Text(hustle),
+                    onTap: () {
+                      onTap();
+                    },
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: tall),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                width: 1, color: grayBlue.withOpacity(0.7)))),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text(help),
+                      onTap: () {
+                        onTap();
+                      },
+                    ),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.logout),
+                    title: const Text(logout),
+                    onTap: () {
+                      onTap();
+                      controller.logout();
+                    },
+                  ),
+                ],
+              )
+            ],
           ),
-          ListTile(
-            title: const Text(chats),
-            onTap: () {
-              onTap();
-              Get.toNamed(Routes.chat);
-            },
-          ),
-          ListTile(
-            title: const Text('Log out'),
-            onTap: () {
-              onTap();
-              controller.logout();
-            },
-          ),
-        ],
+        ),
       ),
-    );
+    ));
   }
 }

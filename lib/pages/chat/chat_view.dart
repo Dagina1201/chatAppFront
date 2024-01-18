@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:front/controller/controllers.dart';
 import 'package:front/data/data.dart';
@@ -50,16 +51,14 @@ class _ChatViewState extends State<ChatView> {
                 onPressed: () {
                   chatKey.currentState?.openDrawer();
                 },
-                icon: Icon(Icons.menu)),
+                icon: const Icon(Icons.menu)),
             Image.asset(imageLogo),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: Image.asset(
-                imageLogo,
-                width: 53,
-                height: 53,
-              ),
-            )
+            Obx(() => RoundedImage(
+                  asset: imageLogo,
+                  width: 40,
+                  height: 40,
+                  url: mainController.user.value!.profileImg,
+                ))
           ],
         ),
       ),
@@ -158,7 +157,9 @@ class _ChatViewState extends State<ChatView> {
                       shadow: false,
                       child: MainButton(
                         onPressed: () {
+                          controller.search(ChatTypes.GROUP, " ");
                           Get.toNamed(Routes.chooseGroup);
+                          controller.createStep.value = 1;
                         },
                         color: searchColor,
                         shadowColor: searchShadowColor,

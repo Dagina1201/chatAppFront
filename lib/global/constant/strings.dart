@@ -5,6 +5,13 @@ const goChat = 'Go Chat';
 const changes = 'Changes';
 const students = 'Students';
 const chats = 'Chats';
+const info = 'Info';
+const hustle = 'HustleZone 🔥';
+const home = 'Home';
+const help = 'Help';
+const logout = 'Log out';
+const hello = "Сайн уу? 👋";
+
 
 // home
 const upComing = 'Upcoming';

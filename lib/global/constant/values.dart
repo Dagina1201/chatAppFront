@@ -10,7 +10,22 @@ const api = 'http://192.168.1.2:5000/api/';
 const url = 'http://192.168.1.2:5000';
 
 
+// {
+//   "types": "LESSON",
+//   "name": "dwm",
+//   "number": 431,
 
+//   "teacher": "65a8322ceb53acc4a45d1853"
+
+// }
+
+// {
+//   "types": "GROUP",
+// "chat": "65a83703cfd6999fe2e822a7",
+// "groupNumber": 413
+
+
+// }
 
 const navBarValues = [
   {
@@ -44,129 +59,5 @@ List<Diagram> diagramValues = [
 ];
 const chatFilters = [ChatTypes.ALL, ChatTypes.GROUP, ChatTypes.TEAM];
 
-List<Chat> groups = [
-  Chat(
-      name: "MGM",
-      number: 331,
-      users: [],
-      groupNumber: 231,
-      sId: '1'),
-  Chat(
-      name: "MKT",
-      number: 221,
-      users: [],
-      groupNumber: 375,
-      sId: '2'),
-  Chat(
-      name: "DBM",
-      number: 221,
-      users: [],
-      groupNumber: 257,
-      sId: '3'),
-  Chat(
-      name: "BET",
-      number: 223,
-      users: [],
-      groupNumber: 278,
-      sId: '4'),
-  Chat(
-      name: "LAW",
-      number: 333,
-      users: [],
-      groupNumber: 299,
-      sId: '5'),
-  Chat(
-      name: "LAW",
-      number: 333,
-      users: [],
-      groupNumber: 299,
-      sId: '6'),
-  Chat(
-      name: "LAW",
-      number: 333,
-      users: [],
-      groupNumber: 299,
-      sId: '7'),
-];
-List<User> users = [
-  User(
-    sId: '1',
-    nickname: 'Эса',
-  ),
-  User(
-    sId: '2',
-    nickname: 'adsf',
-  ),
-  User(
-    sId: '3',
-    nickname: 'asdfasdf',
-  ),
-  User(
-    sId: '4',
-    nickname: 'adf',
-  ),
-  User(
-    sId: '5',
-    nickname: 'aadf',
-  ),
-  User(
-    sId: '6',
-    nickname: 'adsfds',
-  ),
-  User(
-    sId: '7',
-    nickname: 'Эса',
-  ),
-  User(
-    sId: '7',
-    nickname: 'Эса',
-  ),
-  User(
-    sId: '7',
-    nickname: 'Эса',
-  ),
-  User(
-    sId: '7',
-    nickname: 'Эса',
-  ),
-  User(
-    sId: '7',
-    nickname: 'Эса',
-  ),
-  User(
-    sId: '7',
-    nickname: 'Эса',
-  ),
-  User(
-    sId: '7',
-    nickname: 'Эса',
-  ),
-];
 
 List<String> createStepTexts = [chooseGroup, chooseStudent];
-List<Message> messages = [
-  Message(
-      messageType: MessageTypes.TEXT,
-      content:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      chat: '1',
-      sender: User(nickname: 'Eca', sId: '1')),
-  Message(
-      messageType: MessageTypes.TEXT,
-      content:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      chat: '1',
-      sender: User(nickname: 'Eca', sId: '1')),
-  Message(
-      messageType: MessageTypes.TEXT,
-      content:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      chat: '1',
-      sender: User(nickname: 'Bishu', sId: '2')),
-  Message(
-      messageType: MessageTypes.TEXT,
-      content:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-      chat: '1',
-      sender: User(nickname: 'Dorj', sId: '3')),
-];

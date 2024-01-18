@@ -35,7 +35,12 @@ class _HomeViewState extends State<HomeView> {
         space45,
         Obx(
           () => Text(
-              'Hello ${mainController.user.value?.username != null ? mainController.user.value!.username! : mainController.user.value?.email ?? ''}', style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.bold),),
+            'Hello ${removeUrl(mainController.user.value?.username ?? '')}',
+            style: Theme.of(context)
+                .textTheme
+                .displaySmall!
+                .copyWith(fontWeight: FontWeight.bold),
+          ),
         ),
         space9,
         HomeStatusView(

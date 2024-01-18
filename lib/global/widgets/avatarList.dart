@@ -13,9 +13,9 @@ class AvatarListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ChatController());
-    return Container(
+    return SizedBox(
         width: 30 * 5,
-        height: 30,
+        height: 34,
         child: Obx(
           () => Stack(
               children: controller.currentChatUsers.map((e) {
@@ -25,18 +25,16 @@ class AvatarListWidget extends StatelessWidget {
                     top: 0,
                     left: 21 * i.toDouble(),
                     child: Container(
-                      padding: EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                          color: i % 2 == 0 ? blue : orange,
-                          borderRadius: BorderRadius.circular(100)),
-                      child: e.profileImg != null && e.profileImg != ''
-                          ? CachedNetworkImage(imageUrl: e.profileImg!)
-                          : Image.asset(
-                              imgTestUser,
-                              width: 26,
-                            ),
-                    ),
-                  )
+                        padding: const EdgeInsets.all(short),
+                        decoration: BoxDecoration(
+                            color: i % 2 == 0 ? blue : orange,
+                            borderRadius: BorderRadius.circular(100)),
+                        child: RoundedImage(
+                          asset: imgTestUser,
+                          width: 26,
+                          height: 26,
+                          url: e.profileImg,
+                        )))
                 : i == 4
                     ? Positioned(
                         top: 0,

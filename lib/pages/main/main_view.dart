@@ -42,25 +42,16 @@ class _MainViewState extends State<MainView> {
                   onPressed: () {
                     mainKey.currentState?.openDrawer();
                   },
-                  icon: Icon(Icons.menu)),
+                  icon: const Icon(Icons.menu)),
               Image.asset(
                 imageLogo,
                 height: 36,
               ),
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: Obx(
-                    () => controller.user.value != null &&
-                            controller.user.value!.profileImg != null
-                        ? CachedNetworkImage(
-                            imageUrl: controller.user.value!.profileImg!,
-                          )
-                        : Image.asset(
-                            imageLogo,
-                            width: 53,
-                            height: 53,
-                          ),
-                  ))
+              Obx(() => RoundedImage(
+                  asset: imageLogo,
+                  url: controller.user.value?.profileImg,
+                  height: 40,
+                  width: 40))
             ],
           ),
         ),

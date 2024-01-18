@@ -75,7 +75,7 @@ class Util {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          insetPadding: EdgeInsets.symmetric(horizontal: huge),
+          insetPadding: EdgeInsets.symmetric(horizontal: large),
           contentPadding: EdgeInsets.zero,
           backgroundColor: Colors.transparent,
           shape: RoundedRectangleBorder(

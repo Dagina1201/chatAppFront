@@ -44,57 +44,63 @@ class _ChooseStudentViewState extends State<ChooseStudentView> {
                 },
                 icon: Icon(Icons.menu)),
             Image.asset(imageLogo),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: Image.asset(
-                imageLogo,
-                width: 53,
-                height: 53,
-              ),
+            const RoundedImage(
+              asset: imageLogo,
+              width: 53,
+              height: 53,
             )
           ],
         ),
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height -
-            huge -
-            MediaQuery.of(context).padding.top -
-            MediaQuery.of(context).padding.bottom,
-        padding: EdgeInsets.only(right: medium, bottom: regular, left: medium),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            space13,
-            MainButton(
-              color: searchColor,
-              shadowColor: searchShadowColor,
-              onPressed: () {
-                showSearch(context: context, delegate: StudentSearchDelegate());
-              },
-              child: Row(
-                children: <Widget>[Icon(Icons.search), space13, Text(search)],
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height ,
+          padding: const EdgeInsets.only(right: medium, left: medium),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Flexible(
+                flex: 1,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    space13,
+                    MainButton(
+                      color: searchColor,
+                      shadowColor: searchShadowColor,
+                      onPressed: () {
+                        showSearch(
+                            context: context,
+                            delegate: StudentSearchDelegate());
+                      },
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.search),
+                          space13,
+                          Text(search)
+                        ],
+                      ),
+                    ),
+                    space13,
+                    Text(
+                      chooseStudent,
+                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                          fontWeight: FontWeight.bold, letterSpacing: -0.02),
+                    ),
+                    space13,
+                    Text(controller.choseGroup.value),
+                    space22,
+                  ],
+                ),
               ),
-            ),
-            space13,
-            Text(
-              chooseStudent,
-              style: Theme.of(context)
-                  .textTheme
-                  .displaySmall!
-                  .copyWith(fontWeight: FontWeight.bold, letterSpacing: -0.02),
-            ),
-            space13,
-            Text(controller.choseGroup.value),
-            space22,
-            Stack(
-              children: [
-                SizedBox(
-                    height: MediaQuery.of(context).size.height -
-                        MediaQuery.of(context).padding.top -
-                        MediaQuery.of(context).padding.bottom -
-                        300,
-                    child: Obx(
+              Expanded(
+                flex: 2,
+                child: Stack(
+                  children: [
+                    SizedBox(
+                        child: Obx(
                       () => GridView.builder(
                           shrinkWrap: true,
                           gridDelegate:
@@ -119,34 +125,40 @@ class _ChooseStudentViewState extends State<ChooseStudentView> {
                                 ));
                           }),
                     )),
-                Obx(() => controller.selectedStudents.isNotEmpty
-                    ? Positioned(
-                        bottom: 0,
-                        right: 0,
-                        left: 0,
-                        child: MainButton(
-                          color: green,
-                          textColor: white,
-                          shadowColor: greenShadow,
-                          onPressed: () async {
-                            bool res = await controller.create(ChatTypes.TEAM);
+                    Obx(() => controller.selectedStudents.isNotEmpty
+                        ? Positioned(
+                            bottom: appbarHeight / 2,
+                            right: 0,
+                            left: 0,
+                            child: MainButton(
+                              color: green,
+                              textColor: white,
+                              shadowColor: greenShadow,
+                              onPressed: () async {
+                                bool res =
+                                    await controller.create(ChatTypes.TEAM);
 
-                            if (res) {
-                              util.mainAlertDialog(
-                                  'Пүүх!',
-                                  'Та ${controller.choseGroup} хичээлийн багийн чат амжилттай үүслээ. ',
-                                  context,
-                                  AlertType.success,
-                                  2);
-                    
-                            }
-                          },
-                          label: addMember,
-                        ))
-                    : const SizedBox())
-              ],
-            ),
-          ],
+                                if (res) {
+                                  util.mainAlertDialog(
+                                      'Пүүх!',
+                                      'Та ${controller.choseGroup} хичээлийн багийн чат амжилттай үүслээ. ',
+                                      context,
+                                      AlertType.success,
+                                      controller.createStep.value);
+                                }
+                              },
+                              label: addMember,
+                            ))
+                        : Container(
+                            width: 50,
+                            height: 50,
+                            color: Colors.red,
+                          ))
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
