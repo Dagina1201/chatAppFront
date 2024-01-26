@@ -105,7 +105,7 @@ class Api extends GetxService {
       };
 
       final res = await dio.post('auth/login', data: data);
-      
+
       if (res.statusCode == 201) {
         return right(ResponseModel(
             data: res.data['access_token'], message: res.data['message']));
@@ -113,7 +113,7 @@ class Api extends GetxService {
       return left(res.data['message']);
     } catch (e) {
       dev.log(e.toString());
-      return left(ErrorMessage.occured);
+      return left(Messages.occured);
     }
   }
 
@@ -134,7 +134,7 @@ class Api extends GetxService {
       return left(res.data['message']);
     } catch (e) {
       dev.log(e.toString());
-      return left(ErrorMessage.occured);
+      return left(Messages.occured);
     }
   }
 
@@ -149,7 +149,7 @@ class Api extends GetxService {
       return left("Нэвтрэнэ үү.");
     } catch (e) {
       dev.log(e.toString());
-      return left(ErrorMessage.occured);
+      return left(Messages.occured);
     }
   }
 
@@ -162,13 +162,14 @@ class Api extends GetxService {
         return right((res.data as List).map((e) => Chat.fromJson(e)).toList());
       }
 
-      return left(ErrorMessage.occured);
+      return left(Messages.occured);
     } catch (e) {
       dev.log(e.toString());
 
-      return left(ErrorMessage.occured);
+      return left(Messages.occured);
     }
   }
+
   EitherChat<Chat> getChatById(String id) async {
     try {
       final res = await dio.get('/chat/get/$id');
@@ -177,11 +178,11 @@ class Api extends GetxService {
         return right(Chat.fromJson(res.data));
       }
 
-      return left(ErrorMessage.occured);
+      return left(Messages.occured);
     } catch (e) {
       dev.log(e.toString());
 
-      return left(ErrorMessage.occured);
+      return left(Messages.occured);
     }
   }
 
@@ -193,11 +194,11 @@ class Api extends GetxService {
         return right((res.data as List).map((e) => User.fromJson(e)).toList());
       }
 
-      return left(ErrorMessage.occured);
+      return left(Messages.occured);
     } catch (e) {
       dev.log(e.toString());
 
-      return left(ErrorMessage.occured);
+      return left(Messages.occured);
     }
   }
 
@@ -215,11 +216,27 @@ class Api extends GetxService {
         return right(true);
       }
 
-      return left(ErrorMessage.occured);
+      return left(Messages.occured);
     } catch (e) {
       dev.log(e.toString());
 
-      return left(ErrorMessage.occured);
+      return left(Messages.occured);
+    }
+  }
+
+  EitherSuccess<bool> joinChat(String id) async {
+    try {
+      final res = await dio.get('/chat/join/$id');
+
+      if (res.statusCode == 200) {
+        return right(true);
+      }
+
+      return left(Messages.occured);
+    } catch (e) {
+      dev.log(e.toString());
+
+      return left(Messages.occured);
     }
   }
 
@@ -231,11 +248,11 @@ class Api extends GetxService {
         return right((res.data as List).map((e) => Chat.fromJson(e)).toList());
       }
 
-      return left(ErrorMessage.occured);
+      return left(Messages.occured);
     } catch (e) {
       dev.log(e.toString());
 
-      return left(ErrorMessage.occured);
+      return left(Messages.occured);
     }
   }
 
@@ -247,11 +264,11 @@ class Api extends GetxService {
         return right((res.data as List).map((e) => User.fromJson(e)).toList());
       }
 
-      return left(ErrorMessage.occured);
+      return left(Messages.occured);
     } catch (e) {
       dev.log(e.toString());
 
-      return left(ErrorMessage.occured);
+      return left(Messages.occured);
     }
   }
 }

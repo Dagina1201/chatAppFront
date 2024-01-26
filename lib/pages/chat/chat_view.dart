@@ -236,6 +236,7 @@ class _ChatViewState extends State<ChatView> {
                             data: controller.chats[index],
                             index: index,
                             onPressed: (v) {
+                              controller.join(controller.chats[index].sId!);
                               controller.connect(controller.chats[index].sId!);
                             },
                           );

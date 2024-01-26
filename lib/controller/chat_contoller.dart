@@ -102,6 +102,15 @@ class ChatController extends GetxController {
     }
   }
 
+  Future<void> join(String chat) async {
+    try {
+      final res = await api.joinChat(chat);
+      res.fold((l) => dev.log(l), (r) => dev.log(Messages.success));
+    } catch(e) {
+      dev.log(e.toString());
+    }
+  }
+
   void connect(String chat) {
     api.socket.emit('join', chat);
     api.socket.emit('message', {

@@ -41,6 +41,7 @@ const addMember = "Гишүүдийг нэмэх";
 const search = "Хайх";
 
 
-class ErrorMessage {
+class Messages {
   static const occured = "Алдаа гарлаа";
+  static const success = "Амжилттай.";
 }
