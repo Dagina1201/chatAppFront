@@ -26,8 +26,11 @@ class MainController extends GetxController
   }
 
   void getUser() async {
-    final res = await api.getUser();
-    res.fold((l) => null, (r) => user.value = r);
+    final token = storage.read(StorageKeys.token.name);
+    if (token != null) {
+      final res = await api.getUser();
+      res.fold((l) => null, (r) => user.value = r);
+    }
   }
 
   logout() async {
