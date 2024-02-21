@@ -137,6 +137,14 @@ class MainDrawer extends StatelessWidget {
                     },
                   ),
                   ListTile(
+                    leading: const Icon(Icons.book),
+                    title: const Text(survey),
+                    onTap: () {
+                      Get.toNamed(Routes.survey);
+                      onTap();
+                    },
+                  ),
+                  ListTile(
                     leading: const Icon(Icons.money),
                     title: const Text(hustle),
                     onTap: () {

@@ -12,7 +12,6 @@ import 'package:front/global/constant/constant.dart';
 const api = 'http://139.162.40.225:5050/api/';
 const url = 'http://139.162.40.225:5050';
 
-
 // {
 //   "types": "LESSON",
 //   "name": "dwm",
@@ -27,31 +26,7 @@ const url = 'http://139.162.40.225:5050';
 // "chat": "65a83703cfd6999fe2e822a7",
 // "groupNumber": 413
 
-
 // }
-
-const navBarValues = [
-  {
-    'icon': 'assets/icons/navigationBar/home.svg',
-    'activeIcon': 'assets/icons/navigationBar/homeActive.svg',
-    'label': 'Нүүр',
-  },
-  {
-    'icon': 'assets/icons/navigationBar/emergency.svg',
-    'activeIcon': 'assets/icons/navigationBar/emergencyActive.svg',
-    'label': 'Яаралтай',
-  },
-  {
-    'icon': 'assets/icons/navigationBar/notary.svg',
-    'activeIcon': 'assets/icons/navigationBar/notaryActive.svg',
-    'label': 'Захиалга',
-  },
-  {
-    'icon': 'assets/icons/navigationBar/user.svg',
-    'activeIcon': 'assets/icons/navigationBar/userActive.svg',
-    'label': 'Профайл',
-  },
-];
 
 List<Diagram> diagramValues = [
   Diagram(active: 0.1, name: 'mon', value: 0.5),
@@ -61,6 +36,5 @@ List<Diagram> diagramValues = [
   Diagram(active: 1, name: 'fri', value: 1)
 ];
 const chatFilters = [ChatTypes.ALL, ChatTypes.GROUP, ChatTypes.TEAM];
-
 
 List<String> createStepTexts = [chooseGroup, chooseStudent];

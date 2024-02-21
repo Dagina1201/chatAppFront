@@ -42,13 +42,10 @@ class SplashController extends GetxController {
   /// CHECKING UPDATE VERSION
 
   _checkAuthStatus() async {
-    print('tkn: ');
     worker = ever<String?>(
       token,
       (tkn) async {
-        print(tkn);
-        print('tkn: ${tkn}');
-        if (tkn != null) {
+        if (tkn != null && tkn != '') {
           // await storage.write(StorageKeys.currentPage.name, 0);
           Get.toNamed(Routes.main);
         } else {
@@ -59,7 +56,7 @@ class SplashController extends GetxController {
     );
     try {
       token.value = storage.read(StorageKeys.token.name);
-    } catch(e) {
+    } catch (e) {
       print(e);
     }
   }

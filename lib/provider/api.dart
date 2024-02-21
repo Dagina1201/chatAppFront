@@ -17,6 +17,8 @@ typedef EitherChats<T> = Future<Either<String, List<Chat>>>;
 typedef EitherChat<T> = Future<Either<String, Chat>>;
 // typedef EitherChatUsers<T> = Future<Either<String, Tuple2<Chat, List<User>>>>;
 typedef EitherUsers<T> = Future<Either<String, List<User>>>;
+typedef EitherSurveys<T> = Future<Either<String, List<Survey>>>;
+typedef EitherSurvey<T> = Future<Either<String, Survey>>;
 typedef EitherResponse<T> = Future<Either<String, ResponseModel>>;
 typedef EitherText<T> = Future<Either<String, String>>;
 
@@ -262,6 +264,40 @@ class Api extends GetxService {
 
       if (res.statusCode == 200) {
         return right((res.data as List).map((e) => User.fromJson(e)).toList());
+      }
+
+      return left(Messages.occured);
+    } catch (e) {
+      dev.log(e.toString());
+
+      return left(Messages.occured);
+    }
+  }
+
+  // survey
+  EitherSurveys<List<Survey>> getSurvey() async {
+    try {
+      final res = await dio.get('/survey');
+
+      if (res.statusCode == 200) {
+        return right(
+            (res.data as List).map((e) => Survey.fromJson(e)).toList());
+      }
+
+      return left(Messages.occured);
+    } catch (e) {
+      dev.log(e.toString());
+
+      return left(Messages.occured);
+    }
+  }
+
+  EitherSurvey<Survey> getSurveyById(String id) async {
+    try {
+      final res = await dio.get('/survey/get/$id');
+      print(res.data);
+      if (res.statusCode == 200) {
+        return right(Survey.fromJson(res.data));
       }
 
       return left(Messages.occured);

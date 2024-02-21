@@ -1,5 +1,7 @@
 import 'package:front/binding/bindings.dart';
 import 'package:front/pages/pages.dart';
+import 'package:front/pages/survey/survey.detail.view.dart';
+import 'package:front/pages/survey/survey.view.dart';
 import 'package:get/get.dart';
 
 class Routes {
@@ -15,6 +17,8 @@ class Routes {
   // chat
 
   static String chat = '/chat';
+  static String survey = '/survey';
+  static String surveyDetail = '$survey/detail';
   static String team = '$chat/team';
 
   static String chooseGroup = '$chat/create/group';
@@ -70,6 +74,22 @@ class Routes {
     GetPage(
         name: chooseStudent,
         page: () => const ChooseStudentView(),
+        transition: Transition.fade,
+        transitionDuration: const Duration(milliseconds: 100)),
+    //survey
+    GetPage(
+        name: survey,
+        page: () => const SurveyView(),
+        transition: Transition.fade,
+        transitionDuration: const Duration(milliseconds: 100)),
+    GetPage(
+        name: surveyDetail,
+        page: () {
+          String id = Get.arguments[0];
+          return SurveyDetailView(
+            id: id,
+          );
+        },
         transition: Transition.fade,
         transitionDuration: const Duration(milliseconds: 100)),
 

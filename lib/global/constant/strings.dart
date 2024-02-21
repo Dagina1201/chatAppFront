@@ -7,11 +7,11 @@ const students = 'Students';
 const chats = 'Chats';
 const info = 'Info';
 const hustle = 'HustleZone 🔥';
+const survey = 'Судалгаа ';
 const home = 'Home';
 const help = 'Help';
 const logout = 'Log out';
 const hello = "Сайн уу? 👋";
-
 
 // home
 const upComing = 'Upcoming';
@@ -39,7 +39,6 @@ const chooseGroup = "Choose group";
 const chooseStudent = "Choose student";
 const addMember = "Гишүүдийг нэмэх";
 const search = "Хайх";
-
 
 class Messages {
   static const occured = "Алдаа гарлаа";
